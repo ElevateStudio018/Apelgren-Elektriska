@@ -1,0 +1,20 @@
+/* Appelgrens Elektriska: färgtema och tillägg ovanpå site.css */
+:root{
+  --beige:#eef2f7;--sand:#dbe4ef;--green:#14325c;--green-2:#1f4f8a;--sage:#f5c400;--ink:#14202e;--muted:#56606d;--line:#d6dde6;
+}
+.hero .ph::after{background:linear-gradient(0deg,rgb(10 22 40/.82) 0%,rgb(10 22 40/.3) 55%,transparent)}
+.band .ph::after{background:linear-gradient(90deg,rgb(10 22 40/.85),rgb(10 22 40/.2))}
+.demo a{color:var(--sage)}
+.logo{gap:10px}
+.hdr-tel{margin-left:auto;font-weight:700;color:var(--green);text-decoration:none;white-space:nowrap}
+.hdr-tel:hover{text-decoration:underline}
+.hdr-tel+.burger{margin-left:0}
+@media (max-width:420px){.hdr-tel{font-size:15px}.logo{font-size:1.05rem}}
+.aside a:not(.btn),.prose a,footer a{color:inherit}
+.refs{list-style:none;padding:0;margin:24px 0 0;display:flex;flex-wrap:wrap;gap:10px}
+.refs li{background:var(--white);border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-weight:700;color:var(--green)}
+.prose .refs li{background:var(--beige)}
+.mosaic .t{min-height:150px}
+.cform fieldset.med{border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:14px;margin:0}
+.cform legend{font-weight:700;padding:0 6px}
+#formular .cform{max-width:720px}
