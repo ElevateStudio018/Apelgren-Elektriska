@@ -1,0 +1,257 @@
+/* Appelgrens Elektriska: färgtema och tillägg ovanpå site.css */
+:root{
+  --beige:#eef2f7;--sand:#dbe4ef;--green:#14325c;--green-2:#1f4f8a;--sage:#f5c400;--ink:#14202e;--muted:#56606d;--line:#d6dde6;
+}
+.hero .ph::after{background:linear-gradient(0deg,rgb(10 22 40/.82) 0%,rgb(10 22 40/.3) 55%,transparent)}
+.band .ph::after{background:linear-gradient(90deg,rgb(10 22 40/.85),rgb(10 22 40/.2))}
+.tile::before{background:linear-gradient(0deg,rgb(10 22 40/.85),rgb(10 22 40/.15))}
+.tile{background:var(--beige)}
+.demo a{color:var(--sage)}
+
+/* ordmärke i stället för symbol */
+.logo{gap:0;letter-spacing:-.01em}
+.logo .wm{font-weight:800;margin-right:.28em}
+footer .logo,.overlay .logo{color:var(--white)}
+
+.hdr-tel{margin-left:auto;font-weight:700;color:var(--green);text-decoration:none;white-space:nowrap}
+.hdr-tel:hover{text-decoration:underline}
+.hdr-tel+.burger{margin-left:0}
+@media (max-width:420px){.hdr-tel{font-size:15px}.logo{font-size:1.05rem}}
+
+/* inga pilar, plus eller andra tecken */
+.arrow::after,.overlay a::after,summary::after,details[open] summary::after{content:none}
+.arrow{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+.arrow:hover{text-decoration-color:var(--sage)}
+summary:hover{color:var(--green-2)}
+
+.aside a:not(.btn),.prose a,footer a{color:inherit}
+.refs{list-style:none;padding:0;margin:24px 0 0;display:flex;flex-wrap:wrap;gap:10px}
+.refs li{background:var(--white);border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-weight:700;color:var(--green)}
+.prose .refs li{background:var(--beige)}
+.mosaic .t{min-height:150px}
+.cform fieldset.med{border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:14px;margin:0}
+.cform legend{font-weight:700;padding:0 6px}
+#formular .cform{max-width:720px}
+
+/* ---------- egen variant av grundlayouten ---------- */
+:root{--display:"Plus Jakarta Sans","Helvetica Neue",Arial,sans-serif;--r:8px}
+h1,h2,h3{letter-spacing:-.025em}
+.btn{border-radius:var(--r)}
+.btn-y{background:var(--sage);color:var(--ink)}
+.btn-y:hover{background:#ffd52e}
+
+/* sidhuvud: synliga menylänkar på dator */
+.topnav{display:flex;gap:2px;margin-left:auto}
+.topnav a{text-decoration:none;font-weight:600;font-size:15.5px;padding:8px 12px;border-radius:var(--r)}
+.topnav a:hover{background:var(--beige)}
+.topnav a[aria-current=page]{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px;text-decoration-color:var(--sage)}
+.topnav+.hdr-tel{margin-left:14px}
+.burger{display:none;border-radius:var(--r)}
+@media (max-width:1020px){.topnav{display:none}.topnav+.hdr-tel{margin-left:auto}.burger{display:grid}}
+
+/* toppen: en stillbild med faktaremsa */
+.hero2{position:relative;padding:0;color:var(--white);min-height:min(80vh,700px);display:flex;flex-direction:column;justify-content:flex-end}
+.hero2 .ph{position:absolute;inset:0;border-radius:0}
+.hero2 .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgb(10 22 40/.85) 0%,rgb(10 22 40/.45) 55%,rgb(10 22 40/.1))}
+.hero2>.in{position:relative;width:100%;padding-block:72px 64px}
+.hero2 .over{font-weight:700;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage)}
+.hero2 h1{font-size:clamp(2.4rem,6.4vw,4.8rem);font-weight:800;max-width:13ch;margin-top:14px}
+.hero2 h1+p{margin-top:16px;font-size:1.18rem;max-width:44ch;color:rgb(255 255 255/.88)}
+.hero2 .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.hero-strip{position:relative;background:var(--white);color:var(--ink)}
+.hero-strip .in{display:grid;grid-template-columns:repeat(4,1fr)}
+.hero-strip div div{padding:22px 20px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.hero-strip div div:first-child{border-left:0;padding-left:0}
+.hero-strip b{font:800 1.45rem/1.15 var(--display);color:var(--green)}
+.hero-strip span{font-size:14px;color:var(--muted)}
+@media (max-width:760px){.hero-strip .in{grid-template-columns:1fr 1fr}.hero-strip div div{padding:16px 14px}.hero-strip div div:nth-child(3){border-left:0;padding-left:0}.hero-strip div div:nth-child(n+3){border-top:1px solid var(--line)}}
+
+/* tjänster: bild och textlista */
+.svc-split{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,6vw,80px);align-items:start}
+.svc-intro{display:flex;flex-direction:column;gap:16px;position:sticky;top:100px}
+.svc-photo{margin-top:12px;aspect-ratio:4/3;border-radius:var(--r);overflow:hidden}
+.svc-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.svc-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line);counter-reset:s}
+.svc-list li{border-bottom:1px solid var(--line);counter-increment:s}
+.svc-list a{display:grid;grid-template-columns:44px 1fr;gap:2px 12px;padding:22px 4px;text-decoration:none;color:var(--ink);transition:background .2s,padding .2s}
+.svc-list a::before{content:counter(s,decimal-leading-zero);grid-row:span 2;font:700 14px/1.9 var(--display);color:var(--muted)}
+.svc-list b{font:700 1.25rem/1.3 var(--display)}
+.svc-list span{color:var(--muted);font-size:15.5px}
+.svc-list a:hover{background:var(--beige);padding-inline:16px}
+.svc-list a:hover b{text-decoration:underline;text-decoration-color:var(--sage);text-decoration-thickness:2px;text-underline-offset:5px}
+@media (max-width:860px){.svc-split{grid-template-columns:1fr}.svc-intro{position:static}.svc-photo{display:none}}
+
+/* om oss spegelvänd */
+.about2.flip .media{order:2}
+@media (max-width:860px){.about2.flip .media{order:-1}}
+
+/* ROT-bandet med texten till höger */
+.band.right .ph::after{background:linear-gradient(270deg,rgb(10 22 40/.88),rgb(10 22 40/.15))}
+.band.right .in{align-items:flex-start;padding-left:max(20px,calc(50% + 20px))}
+@media (max-width:860px){.band.right .in{padding-left:20px}.band.right .ph::after{background:rgb(10 22 40/.65)}}
+
+/* referenser som textlista */
+.refs-split{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,6vw,80px)}
+.ref-cols{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;column-gap:32px;border-top:1px solid var(--line)}
+.ref-cols li{padding:16px 0;border-bottom:1px solid var(--line);font:700 1.05rem var(--display);color:var(--green)}
+.prose .ref-cols{margin-top:8px}
+@media (max-width:860px){.refs-split{grid-template-columns:1fr}}
+@media (max-width:480px){.ref-cols{grid-template-columns:1fr}}
+
+/* arbetsområde i text */
+.area2{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,6vw,80px);align-items:end}
+.area2 h2{font-size:clamp(1.9rem,4.2vw,3rem)}
+.area2>div{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.area-towns{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 22px;font:700 1.05rem var(--display);color:var(--green)}
+@media (max-width:860px){.area2{grid-template-columns:1fr}}
+
+/* ljus avslutning */
+.fcta.light{background:var(--beige);color:var(--ink);border-top:1px solid var(--line)}
+.fcta.light p{color:var(--muted)}
+
+/* ---------- koncernkänsla: stramare och mer formell ---------- */
+:root{--r:3px;--ink:#111a26;--muted:#5a6573}
+body{font-size:17px}
+h1,h2,h3{font-weight:700;letter-spacing:-.02em;line-height:1.12}
+h2{font-size:clamp(1.7rem,3.4vw,2.45rem)}
+.lead{color:var(--muted);line-height:1.65}
+.eyebrow{display:block;font:600 12.5px var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--green-2);padding-top:14px;border-top:2px solid var(--sage);width:max-content}
+.btn{border-radius:var(--r);font-weight:600;letter-spacing:.01em;padding:14px 24px}
+.btn-o{border-width:1px}
+
+/* informationsrad överst */
+.util{background:var(--ink);color:rgb(255 255 255/.72);font-size:13.5px}
+.util .in{display:flex;justify-content:space-between;align-items:center;min-height:38px;gap:16px}
+.util-r{display:flex;gap:24px}
+.util a{color:#fff;text-decoration:none}
+.util a:hover{text-decoration:underline}
+@media (max-width:640px){.util .in>span:first-child{display:none}.util .in{justify-content:center}}
+header{background:#fff;backdrop-filter:none}
+.nav{height:78px}
+.logo{font-weight:600;font-size:1.22rem;color:var(--ink)}
+.logo .wm{font-weight:800;color:var(--green)}
+.topnav a{font-weight:500;color:var(--ink)}
+.topnav+.btn{margin-left:18px}
+@media (max-width:1020px){.burger{margin-left:auto}}
+
+/* toppen */
+.hero2{min-height:min(76vh,660px)}
+.hero2 .ph::after{background:linear-gradient(90deg,rgb(9 18 32/.9) 0%,rgb(9 18 32/.6) 50%,rgb(9 18 32/.25))}
+.hero2 .over{color:rgb(255 255 255/.75);letter-spacing:.18em;font-weight:600;padding-top:14px;border-top:2px solid var(--sage);display:inline-block}
+.hero2 h1{font-weight:700;max-width:18ch;font-size:clamp(2.2rem,5.2vw,4rem);line-height:1.08}
+.hero-strip{border-bottom:1px solid var(--line)}
+.hero-strip b{font-weight:700;font-size:1.3rem}
+
+/* ingress */
+.ingress{padding-block:clamp(64px,8vw,112px)}
+.ing-grid{display:grid;grid-template-columns:minmax(0,.35fr) minmax(0,1fr);gap:clamp(24px,5vw,72px)}
+.ing-big{font:500 clamp(1.35rem,2.6vw,1.9rem)/1.45 var(--display);letter-spacing:-.01em;color:var(--ink);margin-bottom:24px}
+@media (max-width:760px){.ing-grid{grid-template-columns:1fr}}
+
+/* tjänstelistan */
+.svc-list b{font-weight:600}
+.svc-list a:hover{background:var(--white)}
+
+/* kundgrupper */
+.segs{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,36px);margin-top:44px}
+.seg{display:flex;flex-direction:column;gap:12px;padding-top:22px;border-top:1px solid var(--ink)}
+.seg h3{font-size:1.15rem;font-weight:700}
+.seg p{color:var(--muted);font-size:15.5px;flex:1}
+.seg .arrow{font-size:15px}
+@media (max-width:960px){.segs{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.segs{grid-template-columns:1fr}}
+
+/* bolagsfakta */
+.bolag{margin:28px 0 0;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--sand)}
+.bolag div{padding:14px 16px 14px 0;border-bottom:1px solid var(--sand)}
+.bolag dt{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.bolag dd{margin:4px 0 0;font-weight:600}
+@media (max-width:480px){.bolag{grid-template-columns:1fr}}
+
+/* referenser och övrigt */
+.ref-cols li{font-weight:600}
+.area-towns{font-weight:600}
+summary{font-weight:600}
+.band h2{font-weight:700}
+.fcta.light{background:var(--white);border-top:1px solid var(--line)}
+footer{background:var(--ink)}
+.fbottom{display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:space-between}
+.aside{border-radius:var(--r)}
+.tile,.mini,.refs li{border-radius:var(--r)}
+footer .logo .wm,.overlay .logo .wm{color:var(--sage)}
+
+/* ---------- koncern, steg två ---------- */
+:root{--display:"Inter Tight","Helvetica Neue",Arial,sans-serif;--body:"Inter","Helvetica Neue",Arial,sans-serif;--max:1280px}
+body{font-size:16.5px;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-weight:600;letter-spacing:-.025em}
+.lead{font-size:1.08rem}
+.util{font-size:13px}
+.util-r{gap:28px}
+.nav{height:84px}
+.logo{font-size:1.15rem;font-weight:500}
+.logo .wm{font-weight:700}
+.topnav{gap:6px}
+.topnav a{font-size:15px}
+
+/* rullgardin för tjänster */
+.has-mega{position:static}
+.mega{position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);box-shadow:0 24px 40px rgb(9 18 32/.08);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .2s,visibility 0s .2s;z-index:30}
+.has-mega:hover .mega,.has-mega:focus-within .mega{opacity:1;visibility:visible;transform:none;transition:opacity .2s,transform .2s}
+.mega-in{max-width:var(--max);margin:0 auto;padding:36px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px}
+.mega-lead{margin-top:14px;color:var(--muted);max-width:32ch}
+.mega ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;column-gap:32px}
+.mega li a{display:block;padding:14px 0;border-bottom:1px solid var(--line);font:600 1.02rem var(--display);color:var(--ink);text-decoration:none;border-radius:0}
+.mega li a:hover{color:var(--green-2);background:none;text-decoration:underline;text-underline-offset:5px}
+header .nav{position:relative}
+header{position:sticky}
+
+/* toppen med ingångar */
+.hero2.corp{min-height:min(72vh,620px);justify-content:center}
+.hero2.corp>.in{padding-block:80px 140px}
+.hero2.corp h1{font-size:clamp(2.2rem,4.8vw,3.8rem);max-width:20ch;font-weight:600}
+.entries{position:relative;z-index:2;margin-top:-84px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:#fff;box-shadow:0 20px 50px rgb(9 18 32/.12)}
+.entry{display:flex;flex-direction:column;gap:10px;padding:32px 30px 30px;text-decoration:none;color:var(--ink);border-left:1px solid var(--line);transition:background .2s}
+.entry:first-child{border-left:0}
+.entry .eyebrow{border:0;padding:0;color:var(--muted)}
+.entry h3{font-size:1.3rem}
+.entry p{color:var(--muted);font-size:15.5px;flex:1}
+.entry:hover{background:var(--beige)}
+.entry:hover .arrow{text-decoration-color:var(--sage)}
+@media (max-width:860px){.entries{grid-template-columns:1fr;margin-top:-40px;margin-inline:20px;padding:0}.entry{border-left:0;border-top:1px solid var(--line)}.entry:first-child{border-top:0}}
+
+/* i korthet */
+.korthet{background:var(--green);color:#fff}
+.k-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.k-head .eyebrow{border-top-color:var(--sage)}
+.k-grid{margin:48px 0 0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgb(255 255 255/.2)}
+.k-grid div{padding:28px 24px 8px 0;display:flex;flex-direction:column;gap:10px}
+.k-grid div+div{padding-left:24px;border-left:1px solid rgb(255 255 255/.2)}
+.k-grid dd{margin:0;font:500 clamp(2.4rem,5vw,3.6rem)/1 var(--display);letter-spacing:-.03em}
+.k-grid dt{color:rgb(255 255 255/.72);font-size:15px;max-width:22ch}
+@media (max-width:860px){.k-grid{grid-template-columns:1fr 1fr}.k-grid div:nth-child(3){padding-left:0;border-left:0}.k-grid div:nth-child(n+3){border-top:1px solid rgb(255 255 255/.2)}}
+
+/* arbetssätt */
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,48px);margin-top:44px}
+.principles div{padding-top:22px;border-top:1px solid var(--ink)}
+.principles h3{font-size:1.25rem}
+.principles p{margin-top:12px;color:var(--muted)}
+@media (max-width:860px){.principles{grid-template-columns:1fr}}
+
+/* kontaktdel */
+.contact-band{background:var(--ink);color:#fff;padding-block:clamp(56px,7vw,88px)}
+.cb-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(32px,6vw,80px);align-items:start}
+.contact-band h2{margin:12px 0 26px;max-width:16ch}
+.cb-list{margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.cb-list div{padding-top:18px;border-top:1px solid rgb(255 255 255/.25)}
+.cb-list dt{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:rgb(255 255 255/.6)}
+.cb-list dd{margin:10px 0 0;line-height:1.7}
+.cb-list a{color:#fff;text-decoration:none}
+.cb-list a:hover{text-decoration:underline}
+@media (max-width:860px){.cb-grid{grid-template-columns:1fr}.cb-list{grid-template-columns:1fr}}
+footer{background:#0b131f;border-top:1px solid rgb(255 255 255/.08)}
+
+/* undersidor */
+.phero .ph::after{background:linear-gradient(90deg,rgb(9 18 32/.88),rgb(9 18 32/.35))}
+.phero h1{font-weight:600}
+.phero.plain{background:var(--ink)}
+.has-mega{align-self:stretch;display:flex;align-items:center}
