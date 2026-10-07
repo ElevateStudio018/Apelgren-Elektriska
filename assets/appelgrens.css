@@ -476,3 +476,11 @@ footer{background:#0b131f;border-top:1px solid rgb(255 255 255/.08)}
 .overlay .ov-sub{margin:6px 0 10px;display:flex;flex-direction:column;gap:0}
 .overlay .ov-sub[hidden]{display:none}
 .overlay .ov-sub a{font:500 1.05rem var(--body);padding:10px 0 10px 16px;border:0;border-left:2px solid rgb(255 255 255/.2);border-radius:0;background:none}
+
+/* hamburgare även på dator, sidfot i Lindvik-stil */
+.burger{display:grid !important;margin-left:16px}
+.topnav+.burger{margin-left:16px}
+@media (max-width:1020px){.burger{margin-left:auto}}
+footer{background:var(--green)}
+.fcta{background:var(--green-2)}
+.fcta p{color:rgb(255 255 255/.85)}
