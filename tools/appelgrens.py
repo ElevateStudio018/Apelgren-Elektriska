@@ -9,6 +9,10 @@ import html, os, sys
 OUT = sys.argv[1] if len(sys.argv) > 1 else "."
 E = html.escape
 
+def P(pexels_id, fallback):
+    """Foto från Pexels (länkas direkt). Om det inte laddar visas img/foto-<fallback>.jpg."""
+    return ("pexels", pexels_id, fallback)
+
 FIRMA = "Appelgrens Elektriska"
 TEL, TEL_HREF = "031-26 25 40", "tel:+4631262540"
 MEJL = "info@appelgrensel.se"
@@ -18,24 +22,26 @@ KARTA = "https://www.google.com/maps/search/?api=1&query=%C3%96g%C3%A4rdesv%C3%A
 FORM_OK = f"Tack! Formuläret är inte kopplat ännu – ring {TEL} eller mejla {MEJL} så hjälper vi dig."
 
 # Tillfälliga bilder (img/foto-NN.jpg). Byt mot bilder från nuvarande hemsida.
-IMG = dict(hero=[(1, "50% 50%")], om=4, kontakt=2, referenser=6, rot=10, tjanster=9, korthet=12, arbete=14, refband=7, omrade=23)
+IMG = dict(hero=[(P(27928762, 1), "50% 50%")], om=P(901941, 4), sida_om=P(17842832, 4), kontakt=P(5691590, 2), referenser=P(8221720, 6),
+           rot=P(7031594, 10), tjanster=P(33694019, 9), korthet=P(5408008, 12), arbete=P(28196526, 14), refband=P(30271883, 7),
+           omrade=P(29470768, 23), ovriga=P(6349399, 22))
 
 # ---------------- innehåll ----------------
 TJANSTER = [
- dict(slug="nyinstallation", title="Nyinstallation och entreprenader", short="Skolor, bostäder, industri och kontor", img=6,
+ dict(slug="nyinstallation", title="Nyinstallation och entreprenader", short="Skolor, bostäder, industri och kontor", img=P(34054464, 6),
       lead="Vi har lång erfarenhet av projektering och installation inom både privat och offentlig verksamhet.",
       body=["Våra uppdrag omfattar bland annat skolor, förskolor, gruppboenden, lägenheter, villor, industrier och kontorslokaler.",
             "Vi kan även projektera och ta fram ritningar i CAD."],
       rubrik="Exempel på uppdrag", bullets=["Skolor och förskolor", "Gruppboenden", "Lägenheter och villor", "Industrier", "Kontorslokaler", "Projektering och ritningar i CAD"]),
- dict(slug="service", title="Service och reparation", short="Stora som små jobb – fullt utrustade servicebilar", img=10,
+ dict(slug="service", title="Service och reparation", short="Stora som små jobb – fullt utrustade servicebilar", img=P(442160, 10),
       lead="Vi utför alla typer av elservice och reparationer – oavsett om det gäller ett mindre jobb eller en större installation.",
       body=["Våra servicebilar är fullt utrustade och våra montörer är redo att hjälpa till."],
       rubrik="Vi hjälper bland annat till med", bullets=["Byte och installation av dimmers och vägguttag", "Elinstallationer i kök och badrum", "Elinstallationer vid nybyggnation", "Felsökning och reparation", "Service och underhåll", "Installation av golvvärme"]),
- dict(slug="industri", title="Industri- och maskininstallationer", short="Maskiner, automatikskåp och PLC", img=21,
+ dict(slug="industri", title="Industri- och maskininstallationer", short="Maskiner, automatikskåp och PLC", img=P(14319099, 21),
       lead="Genom många års erfarenhet inom industrin har vi byggt upp gedigen kompetens inom service, utveckling och installation av industri- och verkstadsmaskiner.",
       body=[],
       rubrik="Vi hjälper våra kunder med bland annat", bullets=["Felsökning och reparation", "Ombyggnad och effektivisering av maskiner", "Installation och utveckling av maskinparker", "Konstruktion och byggnation av automatikskåp", "PLC-programmering", "Elinstallationer och styrsystem"]),
- dict(slug="data-tele", title="Data- och teleinstallationer", short="Certifierade för ELKO och Lexcom", img=19,
+ dict(slug="data-tele", title="Data- och teleinstallationer", short="Certifierade för ELKO och Lexcom", img=P(5073493, 19),
       lead="Vi är certifierade datainstallatörer för ELKO och Lexcoms datanät.",
       body=["Vid större installationer och nät kan vi erbjuda systemgarantier på 15–20 år."],
       rubrik="Vi installerar och servar även", bullets=["Datanät", "Teleinstallationer", "Passagesystem", "Porttelefoner"]),
@@ -43,7 +49,7 @@ TJANSTER = [
       lead="Tillsammans med certifierade larmföretag kan vi utföra installationer av både mindre och större säkerhetssystem.",
       body=[],
       rubrik="Vi arbetar bland annat med", bullets=["Inbrottslarm", "Brandlarm", "Utrymningslarm", "Larmanläggningar för skolor, förskolor, butiker och andra verksamheter"]),
- dict(slug="ombyggnation", title="Ombyggnationer och hyresgästanpassningar", short="El i fastigheter där livet pågår", img=17,
+ dict(slug="ombyggnation", title="Ombyggnationer och hyresgästanpassningar", short="El i fastigheter där livet pågår", img=P(15798784, 17),
       lead="Vi har lång erfarenhet av elinstallationer vid ombyggnationer och hyresgästanpassningar av bostäder, lägenheter, kontor, industrier, butiker och restauranger.",
       body=["Vi är vana vid att arbeta i fastigheter där verksamhet eller boende pågår samtidigt. Det ställer höga krav på planering, flexibilitet och hänsyn – något våra montörer arbetar aktivt med genom hela projektet."],
       rubrik="Typer av lokaler", bullets=["Bostäder och lägenheter", "Kontor", "Industrier", "Butiker", "Restauranger"]),
@@ -54,8 +60,14 @@ FAKTA = [("1960", "grundat i Partille"), ("12", "kompetenta elektriker"), ("60+"
 
 # ---------------- byggstenar ----------------
 def img(n, alt="", pos="50% 50%", lazy=True):
-    src = n if isinstance(n, str) else f"img/foto-{n:02d}.jpg"
-    return f'<img class="photo" src="{src}" alt="{E(alt)}"{" loading=\"lazy\"" if lazy else ""} style="object-position:{pos}">'
+    fb = ""
+    if isinstance(n, tuple):
+        _, pid, back = n
+        src = f"https://images.pexels.com/photos/{pid}/pexels-photo-{pid}.jpeg?auto=compress&cs=tinysrgb&w=1800"
+        fb = f' onerror="this.onerror=null;this.src=\'img/foto-{back:02d}.jpg\'"'
+    else:
+        src = n if isinstance(n, str) else f"img/foto-{n:02d}.jpg"
+    return f'<img class="photo" src="{src}" alt="{E(alt)}"{" loading=\"lazy\"" if lazy else ""}{fb} style="object-position:{pos}">'
 def ph(n, alt="", pos="50% 50%"): return f'<div class="ph">{img(n, alt, pos)}</div>'
 FAVICON = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2314325c'/><text x='16' y='23' font-family='Arial' font-weight='700' font-size='20' fill='%23ffffff' text-anchor='middle'>A</text></svg>"
 def ul(lst): return "<ul>" + "".join(f"<li>{E(x)}</li>" for x in lst) + "</ul>"
@@ -66,7 +78,7 @@ STRIP = [("1960", "grundat i Partille"), ("12", "elektriker"), ("15–20 år", "
 def pcards(lst, extra=None):
     extra = len(lst) % 3 == 2 if extra is None else extra
     cards = "".join(f'<a class="pcard3" href="tjanst-{t["slug"]}.html"><div class="pc-img">{img(t["img"])}</div><h3>{E(t["title"])}</h3><p>{E(t["short"])}</p></a>' for t in lst)
-    if extra: cards += f'<a class="pcard3" href="tjanster.html#ovriga"><div class="pc-img">{img(22)}</div><h3>Övriga tjänster</h3><p>Värmekabel, styr- och reglerteknik, elbesiktningar och EIO-eltest</p></a>'
+    if extra: cards += f'<a class="pcard3" href="tjanster.html#ovriga"><div class="pc-img">{img(IMG["ovriga"])}</div><h3>Övriga tjänster</h3><p>Värmekabel, styr- och reglerteknik, elbesiktningar och EIO-eltest</p></a>'
     return f'<div class="pcards">{cards}</div>'
 def pband(n, inner, pos="50% 50%", cls="", label=""):
     return f'<section class="pband {cls}" aria-label="{E(label)}">{ph(n, "", pos)}<div class="in">{inner}</div></section>'
@@ -163,7 +175,7 @@ SEGMENT = [("Privatpersoner", "Elinstallationer i villor och lägenheter, kök o
            ("Industri", "Service, ombyggnad och installation av industri- och verkstadsmaskiner, automatikskåp, PLC-programmering och styrsystem.", "tjanst-industri.html", "Industriinstallationer"),
            ("Offentlig verksamhet", "Projektering och installation i skolor, förskolor och gruppboenden, samt larm och passagesystem.", "tjanst-nyinstallation.html", "Entreprenader")]
 segs = "".join(f'<div class="seg"><h3>{E(a)}</h3><p>{E(b)}</p><a class="arrow" href="{c}">{E(d)}</a></div>' for a, b, c, d in SEGMENT)
-ENTRY_IMG = [18, 15, 20]
+ENTRY_IMG = [P(6301168, 18), P(9301037, 15), P(34718930, 20)]
 ENTRIES = [("Privatpersoner", "Elinstallationer i villor och lägenheter, kök och badrum. ROT-avdrag på 30 % av arbetskostnaden.", "rot-avdrag.html", "Om ROT-avdrag"),
            ("Företag och fastighetsägare", "Entreprenader, ombyggnationer och hyresgästanpassningar – även där verksamhet eller boende pågår.", "tjanst-ombyggnation.html", "Ombyggnationer"),
            ("Industri och offentlig verksamhet", "Maskininstallationer, automatikskåp och PLC samt installationer i skolor, förskolor och gruppboenden.", "tjanst-industri.html", "Industriinstallationer")]
@@ -258,7 +270,7 @@ for t in TJANSTER:
 
 # ---------------- om oss ----------------
 page("om-oss.html", "Om oss", "Appelgrens Elektriska har levererat elinstallationer i Partille med omnejd sedan 1960. Idag är vi 12 elektriker.",
-     phero(IMG["om"], "Om Appelgrens Elektriska", "Trygga och professionella elinstallationer i Partille med omnejd sedan 1960.", [("Start", "index.html"), ("Om oss", None)], "50% 30%")
+     phero(IMG["sida_om"], "Om Appelgrens Elektriska", "Trygga och professionella elinstallationer i Partille med omnejd sedan 1960.", [("Start", "index.html"), ("Om oss", None)], "50% 30%")
      + f'''<section><div class="in content"><div class="prose">{facts.replace('class="facts"', 'class="stats"')}
 <p>{FIRMA} har levererat trygga och professionella elinstallationer i Partille med omnejd sedan <b>1960</b>.</p>
 <p>Under årens lopp har företaget byggt upp en stark position på den lokala marknaden. Idag består verksamheten av <b>12 kompetenta elektriker</b> som hjälper både privatpersoner, företag och organisationer med elinstallationer, service och reparationer.</p>
