@@ -152,10 +152,11 @@ SCHEMA = {"@context": "https://schema.org", "@type": "Electrician", "name": f"{F
           "areaServed": ["Partille", "Göteborg", "Alingsås", "Kungsbacka", "Varberg"]}
 
 def head(title, desc, fn=""):
-    nav = "".join(f'<li><a href="{u}">{t}</a></li>' for u, t in NAV)
+    sub = "".join(f'<a href="tjanst-{t["slug"]}.html">{E(t["title"])}</a>' for t in TJANSTER) + '<a href="tjanster.html#ovriga">Övriga tjänster</a>'
+    nav = "".join((f'<li class="has-sub"><div class="sub-row"><a href="{u}">{t}</a><button class="sub-toggle" type="button" aria-expanded="false" aria-controls="ov-tjanster" aria-label="Visa alla tjänster"><span class="chev" aria-hidden="true"></span></button></div><div class="ov-sub" id="ov-tjanster" hidden>{sub}</div></li>' if u == "tjanster.html" else f'<li><a href="{u}">{t}</a></li>') for u, t in NAV)
     cur = lambda u: " aria-current=\"page\"" if u == fn or (u == "tjanster.html" and fn.startswith("tjanst-")) else ""
     mega = '<div class="mega"><div class="mega-in"><div><p class="eyebrow">Tjänster</p><p class="mega-lead">Elinstallationer, service och entreprenader för privatpersoner, företag och industri.</p></div><ul>' + "".join(f'<li><a href="tjanst-{t["slug"]}.html">{E(t["title"])}</a></li>' for t in TJANSTER) + '<li><a href="tjanster.html#ovriga">Övriga tjänster</a></li></ul></div></div>'
-    topnav = "".join((f'<div class="has-mega"><a href="{u}"{cur(u)}>{t}</a>{mega}</div>' if u == "tjanster.html" else f'<a href="{u}"{cur(u)}>{t}</a>') for u, t in NAV)
+    topnav = "".join((f'<div class="has-mega"><a href="{u}"{cur(u)} aria-haspopup="true">{t}<span class="chev" aria-hidden="true"></span></a>{mega}</div>' if u == "tjanster.html" else f'<a href="{u}"{cur(u)}>{t}</a>') for u, t in NAV)
     return f'''<!doctype html>
 <html lang="sv">
 <head>
@@ -188,7 +189,6 @@ def head(title, desc, fn=""):
 <div class="overlay" id="overlay" aria-hidden="true" inert>
   <div class="ov-top"><a class="logo" href="index.html">{LOGO_TXT}</a><button class="ov-close" id="menuClose" type="button" aria-label="Stäng menyn">Stäng</button></div>
   <nav aria-label="Mobilmeny"><ul>{nav}</ul>
-  <div class="ov-sub">{"".join(f'<a href="tjanst-{t["slug"]}.html">{E(t["title"])}</a>' for t in TJANSTER)}</div>
   <div class="ov-foot"><a href="{TEL_HREF}">Ring {TEL}</a><a href="kontakt.html#offert">Begär offert</a></div></nav>
 </div>
 '''

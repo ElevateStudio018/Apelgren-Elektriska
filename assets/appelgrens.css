@@ -464,3 +464,15 @@ footer{background:#0b131f;border-top:1px solid rgb(255 255 255/.08)}
 .skip{position:absolute;left:-9999px;top:8px;z-index:100;background:var(--sage);color:var(--ink);padding:10px 14px;font-weight:600}
 .skip:focus{left:12px}
 .home .entries{margin-bottom:clamp(56px,7vw,96px)}
+
+/* pilar för menyval med undersidor */
+.chev{display:inline-block;width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:translateY(-3px) rotate(45deg);margin-left:8px;transition:transform .2s}
+.has-mega:hover .chev,.has-mega:focus-within .chev{transform:translateY(0) rotate(-135deg)}
+.overlay .has-sub .sub-row{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgb(255 255 255/.14)}
+.overlay .has-sub .sub-row a{border-bottom:0;flex:1}
+.sub-toggle{background:none;border:1px solid rgb(255 255 255/.3);color:#fff;width:44px;height:44px;border-radius:var(--r);cursor:pointer;display:grid;place-items:center}
+.sub-toggle .chev{margin:0;width:10px;height:10px;border-width:2px}
+.sub-toggle[aria-expanded="true"] .chev{transform:translateY(3px) rotate(-135deg)}
+.overlay .ov-sub{margin:6px 0 10px;display:flex;flex-direction:column;gap:0}
+.overlay .ov-sub[hidden]{display:none}
+.overlay .ov-sub a{font:500 1.05rem var(--body);padding:10px 0 10px 16px;border:0;border-left:2px solid rgb(255 255 255/.2);border-radius:0;background:none}
