@@ -484,3 +484,13 @@ footer{background:#0b131f;border-top:1px solid rgb(255 255 255/.08)}
 footer{background:var(--green)}
 .fcta{background:var(--green-2)}
 .fcta p{color:rgb(255 255 255/.85)}
+
+/* logotyp */
+.logo img{height:40px;width:auto;display:block}
+footer .logo img,.overlay .logo img{filter:brightness(0) invert(1)}
+@media (max-width:420px){.logo img{height:32px}}
+/* pilknapp utan ram */
+.sub-toggle{border:0;background:none}
+/* policysidan */
+.ex-list.one{grid-template-columns:1fr}
+.sign{margin-top:10px;color:var(--muted);font-size:15px}
