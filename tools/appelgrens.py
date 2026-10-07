@@ -72,7 +72,9 @@ LOGO_TXT = '<span class="wm">Appelgrens</span> Elektriska'
 NAV = [("tjanster.html", "Tjänster"), ("om-oss.html", "Om oss"), ("referenser.html", "Referenser"), ("rot-avdrag.html", "ROT-avdrag"), ("kontakt.html", "Kontakt")]
 def head(title, desc, fn=""):
     nav = "".join(f'<li><a href="{u}">{t}</a></li>' for u, t in NAV)
-    topnav = "".join(f'<a href="{u}"{" aria-current=\"page\"" if u == fn or (u == "tjanster.html" and fn.startswith("tjanst-")) else ""}>{t}</a>' for u, t in NAV)
+    cur = lambda u: " aria-current=\"page\"" if u == fn or (u == "tjanster.html" and fn.startswith("tjanst-")) else ""
+    mega = '<div class="mega"><div class="mega-in"><div><p class="eyebrow">Verksamhetsområden</p><p class="mega-lead">Kompletta elinstallationer och eltjänster för privatpersoner, företag och industri.</p></div><ul>' + "".join(f'<li><a href="tjanst-{t["slug"]}.html">{E(t["title"])}</a></li>' for t in TJANSTER) + '<li><a href="tjanster.html#ovriga">Övriga tjänster</a></li></ul></div></div>'
+    topnav = "".join((f'<div class="has-mega"><a href="{u}"{cur(u)}>{t}</a>{mega}</div>' if u == "tjanster.html" else f'<a href="{u}"{cur(u)}>{t}</a>') for u, t in NAV)
     return f'''<!doctype html>
 <html lang="sv">
 <head>
@@ -83,12 +85,12 @@ def head(title, desc, fn=""):
 <meta name="theme-color" content="#14325c">
 <link rel="icon" href="data:image/svg+xml,{FAVICON}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/appelgrens.css">
 </head>
 <body>
-<div class="util"><div class="in"><span>{FIRMA} AB, Partille</span><span class="util-r"><a href="{TEL_HREF}">Växel {TEL}</a><a href="mailto:{MEJL}">{MEJL}</a></span></div></div>
+<div class="util"><div class="in"><span>{FIRMA} AB</span><span class="util-r"><a href="om-oss.html">Om företaget</a><a href="referenser.html">Referenser</a><a href="{TEL_HREF}">Växel {TEL}</a></span></div></div>
 <header>
   <div class="in nav">
     <a class="logo" href="index.html" aria-label="{FIRMA}, till startsidan">{LOGO_TXT}</a>
@@ -106,8 +108,15 @@ def head(title, desc, fn=""):
 '''
 
 def foot():
-    return f'''<section class="fcta light" aria-label="Kontakta oss">
-  <div class="in"><div><h2>Kontakta oss om ert nästa uppdrag</h2><p>Ring växeln på {TEL} eller skicka en förfrågan, så återkommer vi med en lösning som passar ert behov.</p></div><a class="btn btn-g" href="kontakt.html">Kontakta oss</a></div>
+    return f'''<section class="contact-band" aria-label="Kontakta oss">
+  <div class="in cb-grid">
+    <div><p class="eyebrow" style="color:rgb(255 255 255/.75)">Kontakt</p><h2>Kontakta oss om ert nästa uppdrag</h2><a class="btn btn-w" href="kontakt.html">Skicka en förfrågan</a></div>
+    <dl class="cb-list">
+      <div><dt>Växel</dt><dd><a href="{TEL_HREF}">{TEL}</a><br><a href="mailto:{MEJL}">{MEJL}</a></dd></div>
+      <div><dt>{VD["roll"]}</dt><dd>{VD["namn"]}<br><a href="{VD["href"]}">{VD["tel"]}</a></dd></div>
+      <div><dt>Besöksadress</dt><dd>{ADRESS[0]}<br>{ADRESS[1]}</dd></div>
+    </dl>
+  </div>
 </section>
 <footer>
   <div class="in">
@@ -147,21 +156,30 @@ SEGMENT = [("Privatpersoner", "Elinstallationer i villor och lägenheter, kök o
            ("Industri", "Service, ombyggnad och installation av industri- och verkstadsmaskiner, automatikskåp, PLC-programmering och styrsystem.", "tjanst-industri.html", "Industriinstallationer"),
            ("Offentlig verksamhet", "Projektering och installation i skolor, förskolor och gruppboenden, samt larm och passagesystem.", "tjanst-nyinstallation.html", "Entreprenader")]
 segs = "".join(f'<div class="seg"><h3>{E(a)}</h3><p>{E(b)}</p><a class="arrow" href="{c}">{E(d)}</a></div>' for a, b, c, d in SEGMENT)
+ENTRIES = [("Privatpersoner", "Elinstallationer i villor och lägenheter, kök och badrum. ROT-avdrag på 30 % av arbetskostnaden.", "rot-avdrag.html", "Om ROT-avdrag"),
+           ("Företag och fastighetsägare", "Entreprenader, ombyggnationer och hyresgästanpassningar – även där verksamhet eller boende pågår.", "tjanst-ombyggnation.html", "Ombyggnationer"),
+           ("Industri och offentlig verksamhet", "Maskininstallationer, automatikskåp och PLC samt installationer i skolor, förskolor och gruppboenden.", "tjanst-industri.html", "Industriinstallationer")]
+entries = "".join(f'<a class="entry" href="{c}"><span class="eyebrow">För</span><h3>{E(a)}</h3><p>{E(b)}</p><span class="arrow">{E(d)}</span></a>' for a, b, c, d in ENTRIES)
+KORT = [("1960", "Grundat i Partille"), ("12", "Elektriker"), ("60+", "Års erfarenhet av elinstallationer"), ("15–20 år", "Systemgaranti vid större datanät")]
+korthet = "".join(f"<div><dd>{E(a)}</dd><dt>{E(b)}</dt></div>" for a, b in KORT)
+PRINCIPER = [("Planering", "Vi är vana vid att arbeta i fastigheter där verksamhet eller boende pågår samtidigt. Det ställer höga krav på planering, flexibilitet och hänsyn genom hela projektet."),
+             ("Kompetens", "Tolv elektriker med erfarenhet av allt från service och nyinstallation till industrimaskiner, styrsystem och PLC-programmering."),
+             ("Långsiktighet", "Certifierade datainstallatörer för ELKO och Lexcom, med systemgarantier på 15–20 år vid större installationer och nät.")]
+principles = "".join(f"<div><h3>{E(a)}</h3><p>{E(b)}</p></div>" for a, b in PRINCIPER)
 BOLAG = [("Grundat", "1960"), ("Säte", "Partille"), ("Medarbetare", "12 elektriker"), ("VD och ägare", VD["namn"]), ("Certifiering", "Datainstallatör för ELKO och Lexcom"), ("Arbetsområde", "Alingsås till Varberg")]
 bolagsfakta = '<dl class="bolag">' + "".join(f"<div><dt>{E(a)}</dt><dd>{E(b)}</dd></div>" for a, b in BOLAG) + "</dl>"
 faq = "".join(f"<details><summary>{E(q)}</summary><p>{E(a)}</p></details>" for q, a in FAQ)
 page("index.html", f"{FIRMA} – Elektriker i Partille och Stor-Göteborg",
      "Appelgrens Elektriska har levererat trygga elinstallationer i Partille med omnejd sedan 1960. Service, entreprenader, industri, data, larm och ROT-avdrag.", f'''
-  <section class="hero2" aria-label="Välkommen">
+  <section class="hero2 corp" aria-label="Välkommen">
     {ph(IMG["hero"][0][0], "", IMG["hero"][0][1])}
     <div class="in">
-      <p class="over">Sedan 1960</p>
+      <p class="over">Elinstallationer sedan 1960</p>
       <h1>Elinstallationer för bostäder, fastigheter och industri</h1>
       <p>Appelgrens Elektriska utför installationer, service och entreprenader åt privatpersoner, företag och offentlig verksamhet i Partille och Stor-Göteborg.</p>
-      <div class="row"><a class="btn btn-w" href="tjanster.html">Våra tjänster</a><a class="btn btn-o" href="kontakt.html" style="color:#fff">Kontakta oss</a></div>
     </div>
-    <div class="hero-strip"><div class="in">{"".join(f"<div><b>{a}</b><span>{E(b)}</span></div>" for a, b in STRIP)}</div></div>
   </section>
+  <div class="in entries">{entries}</div>
 
   <section class="ingress">
     <div class="in ing-grid">
@@ -185,15 +203,14 @@ page("index.html", f"{FIRMA} – Elektriker i Partille och Stor-Göteborg",
     </div>
   </section>
 
-  <section id="kunder">
+  <section class="korthet" aria-label="Appelgrens i korthet">
     <div class="in">
-      <p class="eyebrow">Våra kunder</p>
-      <h2 style="margin-top:10px;max-width:22ch">Vi arbetar för privata, kommersiella och offentliga uppdragsgivare</h2>
-      <div class="segs">{segs}</div>
+      <div class="k-head"><p class="eyebrow" style="color:rgb(255 255 255/.75)">I korthet</p><h2>Appelgrens Elektriska i siffror</h2></div>
+      <dl class="k-grid">{korthet}</dl>
     </div>
   </section>
 
-  <section class="about" id="om">
+  <section class="about" id="om" style="background:var(--white)">
     <div class="in about2 flip">
       <div class="media">{ph(IMG["om"], "", "50% 30%")}</div>
       <div class="txt">
@@ -205,22 +222,20 @@ page("index.html", f"{FIRMA} – Elektriker i Partille och Stor-Göteborg",
     </div>
   </section>
 
+  <section id="arbetssatt" style="background:var(--beige)">
+    <div class="in">
+      <p class="eyebrow">Arbetssätt</p>
+      <h2 style="margin-top:10px;max-width:24ch">Så arbetar vi</h2>
+      <div class="principles">{principles}</div>
+    </div>
+  </section>
+
   <section id="referenser">
     <div class="in">
       <div class="refs-split">
         <div><p class="eyebrow">Referenser</p><h2 style="margin-top:10px">Uppdragsgivare i urval</h2><p class="lead" style="margin-top:12px">Vi har arbetat med ett stort antal kunder inom privat och offentlig verksamhet samt olika delar av näringslivet.</p><a class="arrow" style="margin-top:18px" href="referenser.html">Alla referenser</a></div>
         {refcols}
       </div>
-    </div>
-  </section>
-
-  <section class="band right" aria-label="ROT-avdrag">
-    {ph(IMG["rot"], "", "50% 40%")}
-    <div class="in">
-      <p class="eyebrow" style="color:#fff">För privatpersoner</p>
-      <h2>ROT-avdrag på elarbeten i hemmet</h2>
-      <p>För privatpersoner som uppfyller Skatteverkets villkor kan ROT-avdraget innebära ett avdrag på 30 % av arbetskostnaden. Vi hjälper dig med ansökan.</p>
-      <div><a class="btn btn-w" href="rot-avdrag.html">Så fungerar ROT-avdraget</a></div>
     </div>
   </section>
 
@@ -237,7 +252,7 @@ page("index.html", f"{FIRMA} – Elektriker i Partille och Stor-Göteborg",
 
   <section id="faq">
     <div class="in faq">
-      <div><p class="eyebrow">Frågor och svar</p><h2 style="margin-top:10px">Vanliga frågor</h2><p class="lead" style="margin-top:14px">Hittar du inte svaret? Ring oss på {TEL}.</p><a class="arrow" style="margin-top:18px" href="kontakt.html">Fråga oss något annat</a></div>
+      <div><p class="eyebrow">Frågor och svar</p><h2 style="margin-top:10px">Frågor och svar</h2><p class="lead" style="margin-top:14px">Hittar du inte svaret? Ring oss på {TEL}.</p><a class="arrow" style="margin-top:18px" href="kontakt.html">Fråga oss något annat</a></div>
       <div>{faq}</div>
     </div>
   </section>''')
