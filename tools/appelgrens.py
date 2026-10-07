@@ -177,7 +177,6 @@ def head(title, desc, fn=""):
 </head>
 <body{' class="home"' if fn == "index.html" else ""}>
 <a class="skip" href="#innehall">Hoppa till innehållet</a>
-<div class="util"><div class="in"><span>{FIRMA} AB</span><span class="util-r"><a href="om-oss.html">Om företaget</a><a href="referenser.html">Referenser</a><a href="{TEL_HREF}">Växel {TEL}</a></span></div></div>
 <header>
   <div class="in nav">
     <a class="logo" href="index.html" aria-label="{FIRMA}, till startsidan">{LOGO_TXT}</a>
@@ -194,28 +193,22 @@ def head(title, desc, fn=""):
 '''
 
 def foot():
-    return f'''<section class="contact-band" aria-label="Kontakta oss">
-  <div class="in cb-grid">
-    <div>{eyebrow("Kontakt", True)}<h2>Kontakta oss om ert nästa uppdrag</h2><a class="btn btn-w" href="kontakt.html#offert">Skicka en förfrågan</a></div>
-    <dl class="cb-list">
-      <div><dt>Växel</dt><dd><a href="{TEL_HREF}">{TEL}</a><br><a href="mailto:{MEJL}">{MEJL}</a></dd></div>
-      <div><dt>{VD["roll"]}</dt><dd>{VD["namn"]}<br><a href="{VD["href"]}">{VD["tel"]}</a></dd></div>
-      <div><dt>Besöksadress</dt><dd>{ADRESS[0]}<br>{ADRESS[1]}</dd></div>
-    </dl>
-  </div>
+    return f'''<section class="fcta" aria-label="Kontakta oss">
+  <div class="in"><div><h2>Behöver du en elektriker?</h2><p>Ring {TEL} eller skicka en förfrågan, så återkommer vi.</p></div><a class="btn btn-w" href="kontakt.html#offert">Begär offert</a></div>
 </section>
 <footer>
   <div class="in">
     <div class="fgrid">
       <div><a class="logo" href="index.html">{LOGO_TXT}</a>
-        <p style="margin-top:14px;max-width:36ch">Trygga och professionella elinstallationer i Partille och Stor-Göteborg sedan 1960.</p>
-        <p style="margin-top:12px">{FIRMA} AB<br>{ADRESS[0]}, {ADRESS[1]}<br><a href="{TEL_HREF}">{TEL}</a><br><a href="mailto:{MEJL}">{MEJL}</a></p>
+        <p style="margin-top:14px;max-width:36ch">Trygga och professionella elinstallationer i Partille och Göteborgsområdet sedan 1960.</p>
+        <p style="margin-top:12px">{ADRESS[0]}, {ADRESS[1]}<br><a href="{TEL_HREF}">{TEL}</a> · <a href="mailto:{MEJL}">{MEJL}</a></p>
       </div>
       <div><h4>Våra tjänster</h4><ul>{"".join(f'<li><a href="tjanst-{t["slug"]}.html">{E(t["title"])}</a></li>' for t in TJANSTER)}<li><a href="tjanster.html#ovriga">Övriga tjänster</a></li></ul></div>
-      <div><h4>Om Appelgrens</h4><ul><li><a href="om-oss.html">Om oss</a></li><li><a href="referenser.html">Referenser</a></li><li><a href="rot-avdrag.html">ROT-avdrag</a></li><li><a href="kontakt.html">Kontakt</a></li></ul></div>
-      <div><h4>Direktkontakt</h4><ul><li>{VD["namn"]}, {VD["roll"].lower()}</li><li><a href="{VD["href"]}">{VD["tel"]}</a></li><li><a href="mailto:{VD["mejl"]}">{VD["mejl"]}</a></li></ul></div>
+      <div><h4>Om Appelgrens</h4><ul><li><a href="om-oss.html">Om oss</a></li><li><a href="om-oss.html#behorigheter">Behörigheter</a></li><li><a href="referenser.html">Referenser</a></li><li><a href="rot-avdrag.html">ROT-avdrag</a></li><li><a href="kontakt.html">Kontakt</a></li></ul></div>
+      <div><h4>Direktkontakt</h4><ul><li>{VD["namn"]}</li><li>{VD["roll"]}</li><li><a href="{VD["href"]}">{VD["tel"]}</a></li><li><a href="mailto:{VD["mejl"]}">{VD["mejl"]}</a></li></ul></div>
     </div>
-    <div class="fbottom"><span>© 2026 {FIRMA} AB</span><span>Förhandsversion – bilderna är tillfälliga</span><a class="totop" href="#" data-top>Till toppen</a></div>
+    <div class="certs" aria-label="Certifieringar"><span>Certifierad datainstallatör ELKO</span><span>Certifierad datainstallatör Lexcom</span><span>Sedan 1960</span></div>
+    <div class="fbottom"><span>© 2026 {FIRMA} AB · Förhandsversion, bilderna är tillfälliga</span><a class="totop" href="#" data-top>Till toppen</a></div>
   </div>
 </footer>
 <nav class="callbar" aria-label="Snabbkontakt"><a href="{TEL_HREF}">Ring {TEL}</a><a href="kontakt.html#offert">Begär offert</a></nav>
