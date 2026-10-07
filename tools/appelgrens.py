@@ -116,7 +116,7 @@ def img(n, alt="", pos="50% 50%", lazy=True, sizes="(max-width: 760px) 100vw, 50
     return f'<img class="photo" src="{src}" alt="{E(alt)}" decoding="async"{extra} style="object-position:{pos}">'
 def ph(n, alt="", pos="50% 50%", lazy=True, sizes="100vw"): return f'<div class="ph">{img(n, alt, pos, lazy, sizes)}</div>'
 FAVICON = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2314325c'/><text x='16' y='23' font-family='Arial' font-weight='700' font-size='20' fill='%23ffffff' text-anchor='middle'>A</text></svg>"
-LOGO_TXT = '<span class="wm">Appelgrens</span> Elektriska'
+LOGO_TXT = '<img src="img/logo.png" alt="Appelgrens Elektriska – Service Partille AB" width="240" height="48">'
 CARD_SIZES = "(max-width: 560px) 100vw, (max-width: 960px) 50vw, 400px"
 
 def pcards(lst, extra=None):
@@ -204,7 +204,7 @@ def foot():
         <p style="margin-top:12px">{ADRESS[0]}, {ADRESS[1]}<br><a href="{TEL_HREF}">{TEL}</a> · <a href="mailto:{MEJL}">{MEJL}</a></p>
       </div>
       <div><h4>Våra tjänster</h4><ul>{"".join(f'<li><a href="tjanst-{t["slug"]}.html">{E(t["title"])}</a></li>' for t in TJANSTER)}<li><a href="tjanster.html#ovriga">Övriga tjänster</a></li></ul></div>
-      <div><h4>Om Appelgrens</h4><ul><li><a href="om-oss.html">Om oss</a></li><li><a href="om-oss.html#behorigheter">Behörigheter</a></li><li><a href="referenser.html">Referenser</a></li><li><a href="rot-avdrag.html">ROT-avdrag</a></li><li><a href="kontakt.html">Kontakt</a></li></ul></div>
+      <div><h4>Om Appelgrens</h4><ul><li><a href="om-oss.html">Om oss</a></li><li><a href="om-oss.html#behorigheter">Behörigheter</a></li><li><a href="miljo-kvalitet.html">Miljö och kvalitet</a></li><li><a href="referenser.html">Referenser</a></li><li><a href="rot-avdrag.html">ROT-avdrag</a></li><li><a href="kontakt.html">Kontakt</a></li></ul></div>
       <div><h4>Direktkontakt</h4><ul><li>{VD["namn"]}</li><li>{VD["roll"]}</li><li><a href="{VD["href"]}">{VD["tel"]}</a></li><li><a href="mailto:{VD["mejl"]}">{VD["mejl"]}</a></li></ul></div>
     </div>
     <div class="certs" aria-label="Certifieringar"><span>Certifierad datainstallatör ELKO</span><span>Certifierad datainstallatör Lexcom</span><span>Sedan 1960</span></div>
@@ -342,7 +342,7 @@ page("om-oss.html", "Om oss – elfirma i Partille sedan 1960", "Appelgrens Elek
 {hist_html}</div></div></section>
 <section class="tint"><div class="in">{eyebrow("Teamet")}<h2 style="margin-top:10px">Människorna bakom</h2><p class="lead" style="margin-top:12px">Appelgrens leds av {VD["roll"].lower()} {VD["namn"]}. Ring direkt om du vill prata om ett större uppdrag.</p>{team_html}</div></section>
 <section><div class="in">{eyebrow("Arbetssätt")}<h2 style="margin-top:10px">Så arbetar vi</h2><div class="principles three">{"".join(f"<div><h3>{E(a)}</h3><p>{E(b)}</p></div>" for a, b in ARBETSSATT)}</div></div></section>
-<section class="tint" id="behorigheter"><div class="in content"><div>{eyebrow("Behörigheter och certifieringar")}<h2 style="margin-top:10px">Certifierade installationer</h2>{certs_html}<p class="small-note">Larm och säkerhetssystem installerar vi tillsammans med certifierade larmföretag.</p></div>
+<section class="tint" id="behorigheter"><div class="in content"><div>{eyebrow("Behörigheter och certifieringar")}<h2 style="margin-top:10px">Certifierade installationer</h2>{certs_html}<p class="small-note">Larm och säkerhetssystem installerar vi tillsammans med certifierade larmföretag.</p><p style="margin-top:18px"><a class="arrow" href="miljo-kvalitet.html">Läs vår miljöpolicy och kvalitetspolicy</a></p></div>
 <aside class="aside"><h3>Fakta</h3><dl>{"".join(f"<div><dt>{E(a)}</dt><dd>{E(b)}</dd></div>" for a, b in BOLAG)}</dl></aside></div></section>
 {omdomen_html}''')
 
@@ -390,6 +390,28 @@ page("kontakt.html", "Kontakt och offert – elektriker i Partille", f"Begär of
   <div><dt>{VD["roll"]}</dt><dd>{VD["namn"]}<br><a href="{VD["href"]}">{VD["tel"]}</a><br><a href="mailto:{VD["mejl"]}">{VD["mejl"]}</a></dd></div>
   <div><dt>Besöksadress</dt><dd>{FIRMA} AB<br>{ADRESS[0]}<br>{ADRESS[1]}</dd></div></dl><a class="arrow" href="{KARTA}" target="_blank" rel="noopener">Visa på karta</a></aside></div></section>
 <section class="related"><div class="in">{eyebrow("Så går det till")}<h2 style="margin-top:10px">Från förfrågan till färdigt jobb</h2>{steps()}</div></section>''')
+
+# ---------------- miljö och kvalitet ----------------
+MILJO_INTRO = "Vi skapar konkurrenskraft hos våra kunder genom att erbjuda hög leveranssäkerhet, kvalité och god kompetens. Verksamheten skall bedrivas på ett sådant sätt att miljön och människan skyddas och energi- och naturresurser sparas så att Appelgrens bidrar till ett långsiktigt uthålligt samhälle."
+MILJO = ["Vi skall påverka, ställa krav på och samarbeta med kunder, leverantörer och myndigheter och andra intressenter för att uppnå minsta möjliga miljöpåverkan.",
+         "Vi skall genom uppföljning och ständiga förbättringar säkerställa att fastställda miljömål nås.",
+         "Vi skall uppfylla aktuell miljölagstiftning och andra miljöförordningar som berör verksamheten.",
+         "Vi skall visa öppenhet och informera om företagets miljöpåverkan och miljöarbete samt vara lyhörda för nya rön och erfarenheter på miljöområdet.",
+         "Vi skall genom utbildning främja och uppmuntra miljömedvetandet hos samtliga medarbetare samt göra dem medvetna om sitt och företagets miljöansvar.",
+         "Vi skall ha en effektiv avfallshantering och en optimal källsortering."]
+KVAL_GENOM = ["Affärsmässighet", "Flexibilitet", "Långsiktighet", "Erforderlig och kvalificerad teknik", "Lyhördhet"]
+KVAL_TRYGG = ["Uppfyller behov och förväntningar.", "Uppfyller lagar och förordningar.", "Levererar tjänster och produkter i rätt tid och av högsta kvalitet.",
+              "Utför erforderliga kontroller av installationer såväl under som efter utfört arbete enligt utarbetade rutiner."]
+SIGN = '<p class="sign">Partille 2016-11-01<br><b>Clas Amandusson</b>, ägare och VD, Appelgrens Elektriska AB</p>'
+def pol_list(lst): return '<ul class="ex-list one">' + "".join(f"<li>{E(x)}</li>" for x in lst) + "</ul>"
+page("miljo-kvalitet.html", "Miljöpolicy och kvalitetspolicy", "Appelgrens Elektriskas miljöpolicy och kvalitetspolicy – så arbetar vi med miljö, kvalitet och kontroll av installationer.",
+     phero(IMG["om"], "Miljö och kvalitet", "Vår miljöpolicy och kvalitetspolicy.", [("Start", "index.html"), ("Om oss", "om-oss.html"), ("Miljö och kvalitet", None)], "50% 30%", cta=False)
+     + f'''<section id="miljopolicy"><div class="in content"><div class="prose">{eyebrow("Miljöpolicy")}<h2 style="margin-top:0">Miljöpolicy</h2>
+<p>{E(MILJO_INTRO)}</p><p>Detta innebär att:</p>{pol_list(MILJO)}{SIGN}</div>{offer_card()}</div></section>
+<section class="tint" id="kvalitetspolicy"><div class="in content"><div class="prose">{eyebrow("Kvalitetspolicy")}<h2 style="margin-top:0">Kvalitetspolicy</h2>
+<p>Appelgrens Elektriska skall genom:</p>{pol_list(KVAL_GENOM)}
+<p>säkerställa att verksamheten uppfyller våra kunders, leverantörers, samarbetspartners och andra intressenters krav.</p>
+<p>Kunderna skall alltid känna sig trygga i vårt samarbete genom att veta att vi efter bästa förmåga:</p>{pol_list(KVAL_TRYGG)}{SIGN}</div></div></section>''')
 
 # ---------------- 404 ----------------
 with open(os.path.join(OUT, "404.html"), "w") as f:
