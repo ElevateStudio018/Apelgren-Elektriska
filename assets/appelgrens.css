@@ -255,3 +255,58 @@ footer{background:#0b131f;border-top:1px solid rgb(255 255 255/.08)}
 .phero h1{font-weight:600}
 .phero.plain{background:var(--ink)}
 .has-mega{align-self:stretch;display:flex;align-items:center}
+
+/* ---------- mer bild: fotoband, fotokort och högre toppbilder ---------- */
+.hero2.corp{min-height:min(88vh,760px)}
+.hero2.corp>.in{padding-block:120px 150px}
+.hero2.corp .row{margin-top:30px}
+.phero{min-height:min(70vh,560px)}
+.phero .in{padding-block:56px 52px}
+.phero h1{font-size:clamp(2.4rem,6vw,4.2rem)}
+.phero p{font-size:1.18rem;max-width:56ch}
+
+/* ingångar med bild */
+.entries{background:transparent;box-shadow:none;gap:16px}
+.entry{padding:0;border:0;background:#fff;box-shadow:0 18px 44px rgb(9 18 32/.14);overflow:hidden}
+.entry:first-child{border:0}
+.en-img{aspect-ratio:16/9;overflow:hidden}
+.en-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.entry:hover .en-img img{transform:scale(1.04)}
+.en-txt{display:flex;flex-direction:column;gap:10px;padding:24px 26px 26px;flex:1}
+.entry:hover{background:#fff}
+@media (max-width:860px){.entries{gap:14px;margin-inline:20px}.entry{border-top:0}}
+
+/* fotokort för tjänster */
+.pcards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,28px);margin-top:40px}
+.pcard3{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--ink)}
+.pc-img{aspect-ratio:4/3;overflow:hidden;margin-bottom:10px;background:var(--sand)}
+.pc-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.pcard3:hover .pc-img img{transform:scale(1.05)}
+.pcard3 h3{font-size:1.22rem}
+.pcard3:hover h3{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;text-decoration-color:var(--sage)}
+.pcard3 p{color:var(--muted);font-size:15.5px}
+@media (max-width:960px){.pcards{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.pcards{grid-template-columns:1fr}}
+
+/* fotoband med mörk toning */
+.pband{position:relative;color:#fff;padding-block:clamp(80px,11vw,150px);overflow:hidden}
+.pband>.ph{position:absolute;inset:0;border-radius:0}
+.pband>.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgb(9 18 32/.9),rgb(9 18 32/.55))}
+.pband>.in{position:relative}
+.pband p{color:rgb(255 255 255/.86)}
+.pband .arrow{color:#fff}
+.pband h2{max-width:22ch}
+.korthet-band .k-grid{border-top-color:rgb(255 255 255/.3)}
+.korthet-band .k-grid div+div{border-left-color:rgb(255 255 255/.3)}
+.refs-band .ref-cols{border-top-color:rgb(255 255 255/.3)}
+.refs-band .ref-cols li{color:#fff;border-bottom-color:rgb(255 255 255/.3)}
+.area-band .area-towns{color:#fff}
+.area-band .area2{align-items:end}
+@media (max-width:860px){.korthet-band .k-grid div:nth-child(3){border-left:0}.korthet-band .k-grid div:nth-child(n+3){border-top-color:rgb(255 255 255/.3)}}
+
+/* arbetssätt med stor bild */
+.work{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,6vw,80px);align-items:stretch}
+.work-img{min-height:420px;overflow:hidden}
+.work-img img{width:100%;height:100%;object-fit:cover;display:block}
+.work .principles{grid-template-columns:1fr;gap:26px;margin-top:32px}
+@media (max-width:860px){.work{grid-template-columns:1fr}.work-img{min-height:0;aspect-ratio:4/3}}

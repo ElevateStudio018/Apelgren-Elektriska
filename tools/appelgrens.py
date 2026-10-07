@@ -18,11 +18,11 @@ KARTA = "https://www.google.com/maps/search/?api=1&query=%C3%96g%C3%A4rdesv%C3%A
 FORM_OK = f"Tack! Formuläret är inte kopplat ännu – ring {TEL} eller mejla {MEJL} så hjälper vi dig."
 
 # Tillfälliga bilder (img/foto-NN.jpg). Byt mot bilder från nuvarande hemsida.
-IMG = dict(hero=[(1, "50% 50%")], om=4, kontakt=14, referenser=6, rot=10, tjanster=21)
+IMG = dict(hero=[(1, "50% 50%")], om=4, kontakt=2, referenser=6, rot=10, tjanster=9, korthet=12, arbete=14, refband=7, omrade=23)
 
 # ---------------- innehåll ----------------
 TJANSTER = [
- dict(slug="nyinstallation", title="Nyinstallation och entreprenader", short="Skolor, bostäder, industri och kontor", img=1,
+ dict(slug="nyinstallation", title="Nyinstallation och entreprenader", short="Skolor, bostäder, industri och kontor", img=6,
       lead="Vi har lång erfarenhet av projektering och installation inom både privat och offentlig verksamhet.",
       body=["Våra uppdrag omfattar bland annat skolor, förskolor, gruppboenden, lägenheter, villor, industrier och kontorslokaler.",
             "Vi kan även projektera och ta fram ritningar i CAD."],
@@ -63,6 +63,13 @@ def tiles(lst): return '<div class="tiles">' + "".join(f'<a class="tile" href="t
 def svc_list(lst):
     return '<ol class="svc-list">' + "".join(f'<li><a href="tjanst-{t["slug"]}.html"><b>{E(t["title"])}</b><span>{E(t["short"])}</span></a></li>' for t in lst) + '<li><a href="tjanster.html#ovriga"><b>Övriga tjänster</b><span>Värmekabel, styr- och reglerteknik, elbesiktningar och EIO-eltest</span></a></li></ol>'
 STRIP = [("1960", "grundat i Partille"), ("12", "elektriker"), ("15–20 år", "systemgaranti på datanät"), ("Stor-Göteborg", "Alingsås till Varberg")]
+def pcards(lst, extra=None):
+    extra = len(lst) % 3 == 2 if extra is None else extra
+    cards = "".join(f'<a class="pcard3" href="tjanst-{t["slug"]}.html"><div class="pc-img">{img(t["img"])}</div><h3>{E(t["title"])}</h3><p>{E(t["short"])}</p></a>' for t in lst)
+    if extra: cards += f'<a class="pcard3" href="tjanster.html#ovriga"><div class="pc-img">{img(22)}</div><h3>Övriga tjänster</h3><p>Värmekabel, styr- och reglerteknik, elbesiktningar och EIO-eltest</p></a>'
+    return f'<div class="pcards">{cards}</div>'
+def pband(n, inner, pos="50% 50%", cls="", label=""):
+    return f'<section class="pband {cls}" aria-label="{E(label)}">{ph(n, "", pos)}<div class="in">{inner}</div></section>'
 def crumbs(lst): return '<nav class="crumbs" aria-label="Brödsmulor">' + ' <span aria-hidden="true">/</span> '.join(f'<a href="{u}">{E(t)}</a>' if u else f"<span>{E(t)}</span>" for t, u in lst) + "</nav>"
 def phero(n, h1, lead, cr, pos="50% 50%"): return f'<section class="phero" aria-label="{E(h1)}">{ph(n, "", pos)}<div class="in">{crumbs(cr)}<h1>{E(h1)}</h1><p>{E(lead)}</p></div></section>'
 def kontaktkort(rubrik="Prata med oss"):
@@ -156,10 +163,11 @@ SEGMENT = [("Privatpersoner", "Elinstallationer i villor och lägenheter, kök o
            ("Industri", "Service, ombyggnad och installation av industri- och verkstadsmaskiner, automatikskåp, PLC-programmering och styrsystem.", "tjanst-industri.html", "Industriinstallationer"),
            ("Offentlig verksamhet", "Projektering och installation i skolor, förskolor och gruppboenden, samt larm och passagesystem.", "tjanst-nyinstallation.html", "Entreprenader")]
 segs = "".join(f'<div class="seg"><h3>{E(a)}</h3><p>{E(b)}</p><a class="arrow" href="{c}">{E(d)}</a></div>' for a, b, c, d in SEGMENT)
+ENTRY_IMG = [18, 15, 20]
 ENTRIES = [("Privatpersoner", "Elinstallationer i villor och lägenheter, kök och badrum. ROT-avdrag på 30 % av arbetskostnaden.", "rot-avdrag.html", "Om ROT-avdrag"),
            ("Företag och fastighetsägare", "Entreprenader, ombyggnationer och hyresgästanpassningar – även där verksamhet eller boende pågår.", "tjanst-ombyggnation.html", "Ombyggnationer"),
            ("Industri och offentlig verksamhet", "Maskininstallationer, automatikskåp och PLC samt installationer i skolor, förskolor och gruppboenden.", "tjanst-industri.html", "Industriinstallationer")]
-entries = "".join(f'<a class="entry" href="{c}"><span class="eyebrow">För</span><h3>{E(a)}</h3><p>{E(b)}</p><span class="arrow">{E(d)}</span></a>' for a, b, c, d in ENTRIES)
+entries = "".join(f'<a class="entry" href="{c}"><div class="en-img">{img(ENTRY_IMG[i])}</div><div class="en-txt"><span class="eyebrow">För</span><h3>{E(a)}</h3><p>{E(b)}</p><span class="arrow">{E(d)}</span></div></a>' for i, (a, b, c, d) in enumerate(ENTRIES))
 KORT = [("1960", "Grundat i Partille"), ("12", "Elektriker"), ("60+", "Års erfarenhet av elinstallationer"), ("15–20 år", "Systemgaranti vid större datanät")]
 korthet = "".join(f"<div><dd>{E(a)}</dd><dt>{E(b)}</dt></div>" for a, b in KORT)
 PRINCIPER = [("Planering", "Vi är vana vid att arbeta i fastigheter där verksamhet eller boende pågår samtidigt. Det ställer höga krav på planering, flexibilitet och hänsyn genom hela projektet."),
@@ -177,6 +185,7 @@ page("index.html", f"{FIRMA} – Elektriker i Partille och Stor-Göteborg",
       <p class="over">Elinstallationer sedan 1960</p>
       <h1>Elinstallationer för bostäder, fastigheter och industri</h1>
       <p>Appelgrens Elektriska utför installationer, service och entreprenader åt privatpersoner, företag och offentlig verksamhet i Partille och Stor-Göteborg.</p>
+      <div class="row"><a class="btn btn-w" href="tjanster.html">Våra tjänster</a><a class="btn btn-o" href="kontakt.html" style="color:#fff">Kontakta oss</a></div>
     </div>
   </section>
   <div class="in entries">{entries}</div>
@@ -192,23 +201,13 @@ page("index.html", f"{FIRMA} – Elektriker i Partille och Stor-Göteborg",
   </section>
 
   <section id="tjanster" style="background:var(--beige)">
-    <div class="in svc-split">
-      <div class="svc-intro">
-        <p class="eyebrow">Verksamhetsområden</p>
-        <h2>Våra tjänster</h2>
-        <p class="lead">Kompletta elinstallationer och eltjänster för privatpersoner, företag och industriverksamheter.</p>
-        <div class="svc-photo">{img(IMG["tjanster"], "", "50% 50%")}</div>
-      </div>
-      {svc_list(TJANSTER)}
+    <div class="in">
+      <div class="headrow"><div><p class="eyebrow">Verksamhetsområden</p><h2 style="margin-top:10px">Våra tjänster</h2><p class="lead" style="margin-top:12px">Kompletta elinstallationer och eltjänster för privatpersoner, företag och industriverksamheter.</p></div><a class="arrow" href="tjanster.html">Alla tjänster</a></div>
+      {pcards(TJANSTER)}
     </div>
   </section>
 
-  <section class="korthet" aria-label="Appelgrens i korthet">
-    <div class="in">
-      <div class="k-head"><p class="eyebrow" style="color:rgb(255 255 255/.75)">I korthet</p><h2>Appelgrens Elektriska i siffror</h2></div>
-      <dl class="k-grid">{korthet}</dl>
-    </div>
-  </section>
+  {pband(IMG["korthet"], f'<div class="k-head"><p class="eyebrow" style="color:rgb(255 255 255/.8)">I korthet</p><h2>Appelgrens Elektriska i siffror</h2></div><dl class="k-grid">{korthet}</dl>', "50% 35%", "korthet-band", "Appelgrens i korthet")}
 
   <section class="about" id="om" style="background:var(--white)">
     <div class="in about2 flip">
@@ -223,32 +222,19 @@ page("index.html", f"{FIRMA} – Elektriker i Partille och Stor-Göteborg",
   </section>
 
   <section id="arbetssatt" style="background:var(--beige)">
-    <div class="in">
-      <p class="eyebrow">Arbetssätt</p>
-      <h2 style="margin-top:10px;max-width:24ch">Så arbetar vi</h2>
-      <div class="principles">{principles}</div>
-    </div>
-  </section>
-
-  <section id="referenser">
-    <div class="in">
-      <div class="refs-split">
-        <div><p class="eyebrow">Referenser</p><h2 style="margin-top:10px">Uppdragsgivare i urval</h2><p class="lead" style="margin-top:12px">Vi har arbetat med ett stort antal kunder inom privat och offentlig verksamhet samt olika delar av näringslivet.</p><a class="arrow" style="margin-top:18px" href="referenser.html">Alla referenser</a></div>
-        {refcols}
-      </div>
-    </div>
-  </section>
-
-  <section id="omrade" style="background:var(--beige)">
-    <div class="in area2">
-      <div><p class="eyebrow">Arbetsområde</p><h2 style="margin-top:10px">Från Alingsås i nordost till Kungsbacka och Varberg i sydväst</h2></div>
+    <div class="in work">
+      <div class="work-img">{img(IMG["arbete"], "", "50% 20%")}</div>
       <div>
-        <p class="lead">Vi utgår från Partille och arbetar i hela Stor-Göteborg. Våra servicebilar är fullt utrustade och våra montörer är redo att hjälpa till.</p>
-        <ul class="area-towns"><li>Alingsås</li><li>Partille</li><li>Göteborg</li><li>Kungsbacka</li><li>Varberg</li></ul>
-        <a class="btn btn-g" href="{KARTA}" target="_blank" rel="noopener">Hitta till oss</a>
+        <p class="eyebrow">Arbetssätt</p>
+        <h2 style="margin-top:10px">Så arbetar vi</h2>
+        <div class="principles">{principles}</div>
       </div>
     </div>
   </section>
+
+  {pband(IMG["refband"], f'<div class="refs-split"><div><p class="eyebrow" style="color:rgb(255 255 255/.8)">Referenser</p><h2 style="margin-top:10px">Uppdragsgivare i urval</h2><p style="margin-top:12px">Vi har arbetat med ett stort antal kunder inom privat och offentlig verksamhet samt olika delar av näringslivet.</p><a class="arrow" style="margin-top:18px" href="referenser.html">Alla referenser</a></div>{refcols}</div>', "50% 50%", "refs-band", "Referenser")}
+
+  {pband(IMG["omrade"], f'<div class="area2"><div><p class="eyebrow" style="color:rgb(255 255 255/.8)">Arbetsområde</p><h2 style="margin-top:10px">Från Alingsås i nordost till Kungsbacka och Varberg i sydväst</h2></div><div><p>Vi utgår från Partille och arbetar i hela Stor-Göteborg. Våra servicebilar är fullt utrustade och våra montörer är redo att hjälpa till.</p><ul class="area-towns"><li>Alingsås</li><li>Partille</li><li>Göteborg</li><li>Kungsbacka</li><li>Varberg</li></ul><a class="btn btn-w" href="{KARTA}" target="_blank" rel="noopener">Hitta till oss</a></div></div>', "50% 60%", "area-band", "Arbetsområde")}
 
   <section id="faq">
     <div class="in faq">
@@ -260,7 +246,7 @@ page("index.html", f"{FIRMA} – Elektriker i Partille och Stor-Göteborg",
 # ---------------- tjänster ----------------
 page("tjanster.html", "Våra tjänster", "Elinstallationer och eltjänster för privatpersoner, företag och industri i Partille och Stor-Göteborg.",
      phero(IMG["tjanster"], "Våra tjänster", "Kompletta elinstallationer och eltjänster för privatpersoner, företag och industriverksamheter.", [("Start", "index.html"), ("Våra tjänster", None)])
-     + f'''<section><div class="in">{tiles(TJANSTER)}</div></section>
+     + f'''<section><div class="in">{pcards(TJANSTER)}</div></section>
 <section class="related" id="ovriga"><div class="in content"><div class="prose"><h2 style="margin-top:0">Lång erfarenhet och bred kompetens</h2><p>{FIRMA} erbjuder kompletta elinstallationer och eltjänster för privatpersoner, företag och industriverksamheter. Med lång erfarenhet och bred kompetens hjälper vi våra kunder med allt från mindre servicearbeten till större entreprenader och industriella installationer.</p><h2>Övriga tjänster</h2><p>Vi erbjuder även:</p>{ul(OVRIGA)}</div>{kontaktkort()}</div></section>''')
 
 for t in TJANSTER:
@@ -268,7 +254,7 @@ for t in TJANSTER:
     page(f"tjanst-{t['slug']}.html", t["title"], t["lead"],
          phero(t["img"], t["title"], t["lead"], [("Start", "index.html"), ("Våra tjänster", "tjanster.html"), (t["title"], None)])
          + f'''<section><div class="in content"><div class="prose">{"".join(f"<p>{E(p)}</p>" for p in t["body"])}<h2{' style="margin-top:0"' if not t["body"] else ""}>{E(t["rubrik"])}</h2>{ul(t["bullets"])}<h2>Kontakta oss</h2><p>Berätta vad du behöver hjälp med, så återkommer vi. Du når oss på <a href="{TEL_HREF}">{TEL}</a> eller <a href="mailto:{MEJL}">{MEJL}</a>.</p></div>{kontaktkort()}</div></section>
-<section class="related"><div class="in"><h2>Fler tjänster</h2><div class="links-row">{others}<a href="tjanster.html#ovriga">Övriga tjänster</a></div></div></section>''')
+<section class="related"><div class="in"><p class="eyebrow">Verksamhetsområden</p><h2 style="margin-top:10px">Fler tjänster</h2>{pcards([o for o in TJANSTER if o is not t])}</div></section>''')
 
 # ---------------- om oss ----------------
 page("om-oss.html", "Om oss", "Appelgrens Elektriska har levererat elinstallationer i Partille med omnejd sedan 1960. Idag är vi 12 elektriker.",
@@ -279,12 +265,14 @@ page("om-oss.html", "Om oss", "Appelgrens Elektriska har levererat elinstallatio
 <p>Våra uppdrag omfattar allt från mindre servicearbeten till större projekt inom bland annat industri, byggnation, kommunal verksamhet och privatmarknaden.</p>
 <h2>Var vi arbetar</h2><p>Vi är verksamma i <b>Partille och Stor-Göteborg</b>, med ett arbetsområde som sträcker sig från <b>Alingsås i nordost till Kungsbacka och Varberg i sydväst</b>.</p>
 <h2>Behöver du en erfaren elektriker?</h2><p>Kontakta {FIRMA} så hjälper vi dig att hitta en lösning som passar ditt behov. Ring <a href="{TEL_HREF}">{TEL}</a>.</p></div>{kontaktkort("Ledning")}</div></section>
-<section class="related"><div class="in"><h2>Det här gör vi</h2><div style="margin-top:24px">{tiles(TJANSTER)}</div></div></section>''')
+{pband(IMG["korthet"], f'<div class="k-head"><p class="eyebrow" style="color:rgb(255 255 255/.8)">I korthet</p><h2>Appelgrens Elektriska i siffror</h2></div><dl class="k-grid">{korthet}</dl>', "50% 35%", "korthet-band", "Appelgrens i korthet")}
+<section class="related"><div class="in"><p class="eyebrow">Verksamhetsområden</p><h2 style="margin-top:10px">Det här gör vi</h2>{pcards(TJANSTER)}</div></section>''')
 
 # ---------------- referenser ----------------
 page("referenser.html", "Referenser", "Några av Appelgrens Elektriskas tidigare och nuvarande kunder: Partillebo, NCC, Skanska, Robnor med flera.",
      phero(IMG["referenser"], "Våra referenser", "Under våra många år i branschen har vi arbetat med ett stort antal kunder inom privat och offentlig verksamhet samt olika delar av näringslivet.", [("Start", "index.html"), ("Referenser", None)])
-     + f'''<section><div class="in content"><div class="prose"><h2 style="margin-top:0">Några av våra tidigare och nuvarande referenser</h2>{refcols}<p style="margin-top:24px">Vill du veta mer om något av uppdragen? Kontakta oss så berättar vi gärna.</p></div>{kontaktkort()}</div></section>''')
+     + f'''<section><div class="in content"><div class="prose"><h2 style="margin-top:0">Några av våra tidigare och nuvarande referenser</h2>{refcols}<p style="margin-top:24px">Vill du veta mer om något av uppdragen? Kontakta oss så berättar vi gärna.</p></div>{kontaktkort()}</div></section>
+{pband(IMG["refband"], '<div class="k-head"><p class="eyebrow" style="color:rgb(255 255 255/.8)">Uppdrag</p><h2>Industri, byggnation, kommunal verksamhet och privatmarknaden</h2></div>', "50% 50%", "korthet-band", "Uppdrag")}''')
 
 # ---------------- ROT ----------------
 def fld(i, label, typ="text", req=True, auto=""):
@@ -309,7 +297,7 @@ page("rot-avdrag.html", "ROT-avdrag", "Elinstallationer kan omfattas av ROT-avdr
 
 # ---------------- kontakt ----------------
 page("kontakt.html", "Kontakt", f"Kontakta Appelgrens Elektriska i Partille: {TEL}, {MEJL}, {ADRESS[0]}.",
-     f'''<section class="phero plain"><div class="in">{crumbs([("Start", "index.html"), ("Kontakt", None)])}<h1>Kontakta oss</h1><p>Har du frågor, behöver hjälp med en elinstallation eller vill du komma i kontakt med oss? Fyll i formuläret så återkommer vi.</p></div></section>
+     phero(IMG["kontakt"], "Kontakta oss", "Har du frågor, behöver hjälp med en elinstallation eller vill du komma i kontakt med oss? Fyll i formuläret så återkommer vi.", [("Start", "index.html"), ("Kontakt", None)], "50% 30%") + f'''
 <section><div class="in content"><form class="cform" data-demo>
     <h2>Skicka ett meddelande</h2>
     {fld("cn", "Namn", auto="name")}{fld("ce", "E-post", "email", auto="email")}{fld("cs", "Ämne")}
