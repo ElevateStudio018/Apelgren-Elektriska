@@ -4,6 +4,34 @@ Alla bilder som används nu är tillfälliga byggfoton. Nedan står vilka bilder
 
 Allra bäst är egna foton på Appelgrens elektriker, servicebilar och uppdrag. Använd i så fall stockfoton bara där egna bilder saknas.
 
+## Konkreta förslag från Pexels
+
+Ett förslag per bildplats. Fotona är valda utifrån titlarna och beskrivningarna på Pexels. Öppna länken och kontrollera att bilden passar innan du laddar ner den. Pexels bilder är gratis, även för kommersiellt bruk, men kontrollera licensen på varje fotos sida.
+
+| Fil | Förslag |
+|---|---|
+| `topp.jpg` | [Elektriker som arbetar i en elcentral](https://www.pexels.com/photo/a-man-is-working-on-an-electrical-panel-27928762/) |
+| `ingang-privat.jpg` | [Modernt kök med ljus inredning och belysning](https://www.pexels.com/photo/interior-of-kitchen-with-modern-furniture-6301168/) |
+| `ingang-foretag.jpg` | [Hörn av modernt bostadshus](https://www.pexels.com/photo/corner-of-a-modern-residential-building-9301037/) |
+| `ingang-industri.jpg` | [Fabrikshall med maskiner och transportband](https://www.pexels.com/photo/industrial-factory-interior-with-conveyor-34718930/) |
+| `siffror.jpg` | [Elektronik med kopplade kablar](https://www.pexels.com/photo/modern-electronic-construction-with-connected-wires-5408008/) |
+| `om.jpg` | [Två yrkesmän i vita hjälmar](https://www.pexels.com/photo/two-men-wearing-white-hard-hat-901941/) |
+| `arbete.jpg` | [Man i gul väst med hjälm i handen](https://www.pexels.com/photo/a-man-in-a-yellow-vest-holding-a-hard-hat-28196526/) |
+| `referenser.jpg` | [Fasad på modernt flerbostadshus](https://www.pexels.com/photo/modern-urban-apartment-building-facade-in-daylight-30271883/) |
+| `omrade.jpg` | [Göteborg med Karlatornet](https://www.pexels.com/photo/karla-tower-skylines-in-gothenburg-sweden-29470768/) |
+| `tjanst-nyinstallation.jpg` | [Elektriker mäter i elcentral med multimeter](https://www.pexels.com/photo/electrician-diagnosing-electrical-panel-with-multimeter-34054464/) |
+| `tjanst-service.jpg` | [Elektriker lagar eluttag](https://www.pexels.com/photo/an-electrician-repairing-the-ac-power-plugs-and-sockets-442160/) |
+| `tjanst-industri.jpg` | [Elektriker vid styrskåp i industri](https://www.pexels.com/photo/man-fixing-electric-box-14319099/) |
+| `tjanst-data-tele.jpg` | [Kablar i patchpanel](https://www.pexels.com/photo/cables-plugged-into-patch-panel-5073493/) |
+| `tjanst-larm.jpg` | Ingen exakt träff. Välj en takmonterad brandvarnare här: [sök "fire alarm"](https://www.pexels.com/search/fire%20alarm/) |
+| `tjanst-ombyggnation.jpg` | [Rum under renovering](https://www.pexels.com/photo/interior-of-a-room-under-renovation-15798784/) |
+| `tjanst-ovriga.jpg` | [Multimeter, tång och säkringar](https://www.pexels.com/photo/electrical-devices-and-a-pliers-6349399/) |
+| `sida-tjanster.jpg` | [Tekniker vid styrpanel](https://www.pexels.com/photo/technician-working-on-electrical-control-panel-33694019/) |
+| `sida-om.jpg` | [Elektriker vid elskåp](https://www.pexels.com/photo/electrician-by-fuse-box-17842832/) |
+| `sida-referenser.jpg` | [Flerbostadshus med balkonger](https://www.pexels.com/photo/facade-of-a-modern-apartment-building-with-balconies-8221720/) |
+| `sida-rot.jpg` | [Modern villa med trädgård](https://www.pexels.com/photo/exterior-of-fenced-modern-villa-in-suburb-area-7031594/). Den ser inte svensk ut, så kolla gärna också [sök "swedish homes"](https://www.pexels.com/search/swedish%20homes/) |
+| `sida-kontakt.jpg` | Ingen bild på servicebil hittades. [Elektriker med tång vid eluttag](https://www.pexels.com/photo/an-electrician-using-pliers-to-repair-the-ac-power-plugs-and-sockets-5691590/) fungerar, eller [sök "electrician van"](https://www.pexels.com/search/electrician%20van/) |
+
 ## Så lägger du in dem
 1. Ladda ner bilden från Pexels i storleken **Large** eller **Original**.
 2. Spara den i mappen `img/` med filnamnet i listan, till exempel `img/topp.jpg`.
