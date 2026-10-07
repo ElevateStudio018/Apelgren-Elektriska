@@ -62,7 +62,7 @@ def ul(lst): return "<ul>" + "".join(f"<li>{E(x)}</li>" for x in lst) + "</ul>"
 def tiles(lst): return '<div class="tiles">' + "".join(f'<a class="tile" href="tjanst-{t["slug"]}.html">{img(t["img"])}<span><b>{E(t["title"])}</b><small>{E(t["short"])}</small></span></a>' for t in lst) + "</div>"
 def svc_list(lst):
     return '<ol class="svc-list">' + "".join(f'<li><a href="tjanst-{t["slug"]}.html"><b>{E(t["title"])}</b><span>{E(t["short"])}</span></a></li>' for t in lst) + '<li><a href="tjanster.html#ovriga"><b>Övriga tjänster</b><span>Värmekabel, styr- och reglerteknik, elbesiktningar och EIO-eltest</span></a></li></ol>'
-STRIP = [("1960", "grundat i Partille"), ("12", "kompetenta elektriker"), ("30 %", "ROT-avdrag på arbetet"), ("Alingsås–Varberg", "vårt arbetsområde")]
+STRIP = [("1960", "grundat i Partille"), ("12", "elektriker"), ("15–20 år", "systemgaranti på datanät"), ("Stor-Göteborg", "Alingsås till Varberg")]
 def crumbs(lst): return '<nav class="crumbs" aria-label="Brödsmulor">' + ' <span aria-hidden="true">/</span> '.join(f'<a href="{u}">{E(t)}</a>' if u else f"<span>{E(t)}</span>" for t, u in lst) + "</nav>"
 def phero(n, h1, lead, cr, pos="50% 50%"): return f'<section class="phero" aria-label="{E(h1)}">{ph(n, "", pos)}<div class="in">{crumbs(cr)}<h1>{E(h1)}</h1><p>{E(lead)}</p></div></section>'
 def kontaktkort(rubrik="Prata med oss"):
@@ -88,13 +88,12 @@ def head(title, desc, fn=""):
 <link rel="stylesheet" href="assets/appelgrens.css">
 </head>
 <body>
-<div class="demo">Förhandsversion av nya hemsidan. Bilderna är tillfälliga.</div>
+<div class="util"><div class="in"><span>{FIRMA} AB, Partille</span><span class="util-r"><a href="{TEL_HREF}">Växel {TEL}</a><a href="mailto:{MEJL}">{MEJL}</a></span></div></div>
 <header>
   <div class="in nav">
     <a class="logo" href="index.html" aria-label="{FIRMA}, till startsidan">{LOGO_TXT}</a>
     <nav class="topnav" aria-label="Huvudmeny">{topnav}</nav>
-    <a class="hdr-tel" href="{TEL_HREF}">{TEL}</a>
-    <button class="burger" id="burger" aria-expanded="false" aria-controls="overlay" aria-label="Öppna menyn"><span></span><span></span><span></span></button>
+        <button class="burger" id="burger" aria-expanded="false" aria-controls="overlay" aria-label="Öppna menyn"><span></span><span></span><span></span></button>
     <a class="btn btn-g" href="kontakt.html">Kontakta oss</a>
   </div>
 </header>
@@ -108,7 +107,7 @@ def head(title, desc, fn=""):
 
 def foot():
     return f'''<section class="fcta light" aria-label="Kontakta oss">
-  <div class="in"><div><h2>Behöver du en erfaren elektriker?</h2><p>Ring {TEL} eller skicka ett meddelande, så hjälper vi dig att hitta en lösning som passar ditt behov.</p></div><a class="btn btn-g" href="kontakt.html">Kontakta oss</a></div>
+  <div class="in"><div><h2>Kontakta oss om ert nästa uppdrag</h2><p>Ring växeln på {TEL} eller skicka en förfrågan, så återkommer vi med en lösning som passar ert behov.</p></div><a class="btn btn-g" href="kontakt.html">Kontakta oss</a></div>
 </section>
 <footer>
   <div class="in">
@@ -121,7 +120,7 @@ def foot():
       <div><h4>Om Appelgrens</h4><ul><li><a href="om-oss.html">Om oss</a></li><li><a href="referenser.html">Referenser</a></li><li><a href="rot-avdrag.html">ROT-avdrag</a></li><li><a href="kontakt.html">Kontakt</a></li></ul></div>
       <div><h4>Direktkontakt</h4><ul><li>{VD["namn"]}, {VD["roll"].lower()}</li><li><a href="{VD["href"]}">{VD["tel"]}</a></li><li><a href="mailto:{VD["mejl"]}">{VD["mejl"]}</a></li></ul></div>
     </div>
-    <div class="fbottom"><span>© 2026 {FIRMA} AB</span><a class="totop" href="#" data-top>Till toppen</a></div>
+    <div class="fbottom"><span>© 2026 {FIRMA} AB</span><span>Förhandsversion – bilderna är tillfälliga</span><a class="totop" href="#" data-top>Till toppen</a></div>
   </div>
 </footer>
 <script src="assets/site.js"></script>
@@ -143,28 +142,54 @@ FAQ = [("Vilka områden arbetar ni i?", "Vi är verksamma i Partille och Stor-G�
        ("Kan jag få ROT-avdrag?", "Elinstallationer i ditt hem kan omfattas av ROT-avdrag enligt Skatteverkets regler. Avdraget är 30 % av arbetskostnaden för den som uppfyller villkoren."),
        ("Arbetar ni åt företag och kommuner?", "Ja. Vi arbetar åt privatpersoner, företag, fastighetsägare, byggföretag och kommunal verksamhet."),
        ("Kan ni ta fram ritningar?", "Ja, vi kan projektera och ta fram ritningar i CAD.")]
+SEGMENT = [("Privatpersoner", "Elinstallationer i villor och lägenheter, kök och badrum, golvvärme och felsökning. ROT-avdrag på arbetskostnaden.", "rot-avdrag.html", "ROT-avdrag"),
+           ("Fastighetsägare och bostadsbolag", "Ombyggnationer och hyresgästanpassningar i bostäder, kontor, butiker och restauranger – även där verksamhet eller boende pågår.", "tjanst-ombyggnation.html", "Ombyggnationer"),
+           ("Industri", "Service, ombyggnad och installation av industri- och verkstadsmaskiner, automatikskåp, PLC-programmering och styrsystem.", "tjanst-industri.html", "Industriinstallationer"),
+           ("Offentlig verksamhet", "Projektering och installation i skolor, förskolor och gruppboenden, samt larm och passagesystem.", "tjanst-nyinstallation.html", "Entreprenader")]
+segs = "".join(f'<div class="seg"><h3>{E(a)}</h3><p>{E(b)}</p><a class="arrow" href="{c}">{E(d)}</a></div>' for a, b, c, d in SEGMENT)
+BOLAG = [("Grundat", "1960"), ("Säte", "Partille"), ("Medarbetare", "12 elektriker"), ("VD och ägare", VD["namn"]), ("Certifiering", "Datainstallatör för ELKO och Lexcom"), ("Arbetsområde", "Alingsås till Varberg")]
+bolagsfakta = '<dl class="bolag">' + "".join(f"<div><dt>{E(a)}</dt><dd>{E(b)}</dd></div>" for a, b in BOLAG) + "</dl>"
 faq = "".join(f"<details><summary>{E(q)}</summary><p>{E(a)}</p></details>" for q, a in FAQ)
 page("index.html", f"{FIRMA} – Elektriker i Partille och Stor-Göteborg",
      "Appelgrens Elektriska har levererat trygga elinstallationer i Partille med omnejd sedan 1960. Service, entreprenader, industri, data, larm och ROT-avdrag.", f'''
   <section class="hero2" aria-label="Välkommen">
     {ph(IMG["hero"][0][0], "", IMG["hero"][0][1])}
     <div class="in">
-      <p class="over">Elektriker i Partille sedan 1960</p>
-      <h1>El som fungerar, jobb som håller</h1>
-      <p>Elinstallationer, service och entreprenader för privatpersoner, företag och industri i Partille och Stor-Göteborg.</p>
-      <div class="row"><a class="btn btn-y" href="kontakt.html">Kontakta oss</a><a class="btn btn-o" href="tjanster.html" style="color:#fff">Våra tjänster</a></div>
+      <p class="over">Sedan 1960</p>
+      <h1>Elinstallationer för bostäder, fastigheter och industri</h1>
+      <p>Appelgrens Elektriska utför installationer, service och entreprenader åt privatpersoner, företag och offentlig verksamhet i Partille och Stor-Göteborg.</p>
+      <div class="row"><a class="btn btn-w" href="tjanster.html">Våra tjänster</a><a class="btn btn-o" href="kontakt.html" style="color:#fff">Kontakta oss</a></div>
     </div>
     <div class="hero-strip"><div class="in">{"".join(f"<div><b>{a}</b><span>{E(b)}</span></div>" for a, b in STRIP)}</div></div>
   </section>
 
-  <section id="tjanster">
+  <section class="ingress">
+    <div class="in ing-grid">
+      <p class="eyebrow">Appelgrens Elektriska AB</p>
+      <div>
+        <p class="ing-big">Vi har levererat trygga och professionella elinstallationer i Partille med omnejd sedan 1960. Idag hjälper tolv elektriker privatpersoner, företag och organisationer – från mindre servicearbeten till större entreprenader och industriella installationer.</p>
+        <a class="arrow" href="om-oss.html">Om företaget</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="tjanster" style="background:var(--beige)">
     <div class="in svc-split">
       <div class="svc-intro">
+        <p class="eyebrow">Verksamhetsområden</p>
         <h2>Våra tjänster</h2>
-        <p class="lead">Kompletta elinstallationer och eltjänster för privatpersoner, företag och industriverksamheter – från mindre servicearbeten till större entreprenader.</p>
+        <p class="lead">Kompletta elinstallationer och eltjänster för privatpersoner, företag och industriverksamheter.</p>
         <div class="svc-photo">{img(IMG["tjanster"], "", "50% 50%")}</div>
       </div>
       {svc_list(TJANSTER)}
+    </div>
+  </section>
+
+  <section id="kunder">
+    <div class="in">
+      <p class="eyebrow">Våra kunder</p>
+      <h2 style="margin-top:10px;max-width:22ch">Vi arbetar för privata, kommersiella och offentliga uppdragsgivare</h2>
+      <div class="segs">{segs}</div>
     </div>
   </section>
 
@@ -172,14 +197,19 @@ page("index.html", f"{FIRMA} – Elektriker i Partille och Stor-Göteborg",
     <div class="in about2 flip">
       <div class="media">{ph(IMG["om"], "", "50% 30%")}</div>
       <div class="txt">
-        <h2 style="margin-top:8px">Vår kunskap och service gör dig nöjd</h2>
+        <p class="eyebrow">Om företaget</p>
+        <h2 style="margin-top:10px">Vår kunskap och service gör dig nöjd</h2>
         <p class="lead" style="margin-top:14px">Med över 60 års erfarenhet, bred kompetens och ett engagerat team hjälper vi våra kunder med trygga elinstallationer, service och entreprenader i Partille och Stor-Göteborg.</p>
-        {facts}
-        <div class="minis">
-          <a class="mini" href="om-oss.html"><b>Om oss</b><span>Ett lokalt elföretag med en stark position i Partille.</span></a>
-          <a class="mini" href="referenser.html"><b>Referenser</b><span>NCC, Skanska, Partillebo och många fler.</span></a>
-          <a class="mini" href="rot-avdrag.html"><b>ROT-avdrag</b><span>30 % avdrag på arbetskostnaden för privatpersoner.</span></a>
-        </div>
+        {bolagsfakta}
+      </div>
+    </div>
+  </section>
+
+  <section id="referenser">
+    <div class="in">
+      <div class="refs-split">
+        <div><p class="eyebrow">Referenser</p><h2 style="margin-top:10px">Uppdragsgivare i urval</h2><p class="lead" style="margin-top:12px">Vi har arbetat med ett stort antal kunder inom privat och offentlig verksamhet samt olika delar av näringslivet.</p><a class="arrow" style="margin-top:18px" href="referenser.html">Alla referenser</a></div>
+        {refcols}
       </div>
     </div>
   </section>
@@ -187,24 +217,16 @@ page("index.html", f"{FIRMA} – Elektriker i Partille och Stor-Göteborg",
   <section class="band right" aria-label="ROT-avdrag">
     {ph(IMG["rot"], "", "50% 40%")}
     <div class="in">
+      <p class="eyebrow" style="color:#fff">För privatpersoner</p>
       <h2>ROT-avdrag på elarbeten i hemmet</h2>
       <p>För privatpersoner som uppfyller Skatteverkets villkor kan ROT-avdraget innebära ett avdrag på 30 % av arbetskostnaden. Vi hjälper dig med ansökan.</p>
       <div><a class="btn btn-w" href="rot-avdrag.html">Så fungerar ROT-avdraget</a></div>
     </div>
   </section>
 
-  <section id="referenser">
-    <div class="in">
-      <div class="refs-split">
-        <div><h2>De har anlitat oss</h2><p class="lead" style="margin-top:12px">Vi har arbetat med ett stort antal kunder inom privat och offentlig verksamhet och olika delar av näringslivet.</p><a class="arrow" style="margin-top:18px" href="referenser.html">Alla referenser</a></div>
-        {refcols}
-      </div>
-    </div>
-  </section>
-
   <section id="omrade" style="background:var(--beige)">
     <div class="in area2">
-      <h2>Från Alingsås i nordost till Kungsbacka och Varberg i sydväst</h2>
+      <div><p class="eyebrow">Arbetsområde</p><h2 style="margin-top:10px">Från Alingsås i nordost till Kungsbacka och Varberg i sydväst</h2></div>
       <div>
         <p class="lead">Vi utgår från Partille och arbetar i hela Stor-Göteborg. Våra servicebilar är fullt utrustade och våra montörer är redo att hjälpa till.</p>
         <ul class="area-towns"><li>Alingsås</li><li>Partille</li><li>Göteborg</li><li>Kungsbacka</li><li>Varberg</li></ul>
@@ -215,7 +237,7 @@ page("index.html", f"{FIRMA} – Elektriker i Partille och Stor-Göteborg",
 
   <section id="faq">
     <div class="in faq">
-      <div><h2 style="margin-top:8px">Vanliga frågor</h2><p class="lead" style="margin-top:14px">Hittar du inte svaret? Ring oss på {TEL}.</p><a class="arrow" style="margin-top:18px" href="kontakt.html">Fråga oss något annat</a></div>
+      <div><p class="eyebrow">Frågor och svar</p><h2 style="margin-top:10px">Vanliga frågor</h2><p class="lead" style="margin-top:14px">Hittar du inte svaret? Ring oss på {TEL}.</p><a class="arrow" style="margin-top:18px" href="kontakt.html">Fråga oss något annat</a></div>
       <div>{faq}</div>
     </div>
   </section>''')

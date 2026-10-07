@@ -108,3 +108,74 @@ h1,h2,h3{letter-spacing:-.025em}
 /* ljus avslutning */
 .fcta.light{background:var(--beige);color:var(--ink);border-top:1px solid var(--line)}
 .fcta.light p{color:var(--muted)}
+
+/* ---------- koncernkänsla: stramare och mer formell ---------- */
+:root{--r:3px;--ink:#111a26;--muted:#5a6573}
+body{font-size:17px}
+h1,h2,h3{font-weight:700;letter-spacing:-.02em;line-height:1.12}
+h2{font-size:clamp(1.7rem,3.4vw,2.45rem)}
+.lead{color:var(--muted);line-height:1.65}
+.eyebrow{display:block;font:600 12.5px var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--green-2);padding-top:14px;border-top:2px solid var(--sage);width:max-content}
+.btn{border-radius:var(--r);font-weight:600;letter-spacing:.01em;padding:14px 24px}
+.btn-o{border-width:1px}
+
+/* informationsrad överst */
+.util{background:var(--ink);color:rgb(255 255 255/.72);font-size:13.5px}
+.util .in{display:flex;justify-content:space-between;align-items:center;min-height:38px;gap:16px}
+.util-r{display:flex;gap:24px}
+.util a{color:#fff;text-decoration:none}
+.util a:hover{text-decoration:underline}
+@media (max-width:640px){.util .in>span:first-child{display:none}.util .in{justify-content:center}}
+header{background:#fff;backdrop-filter:none}
+.nav{height:78px}
+.logo{font-weight:600;font-size:1.22rem;color:var(--ink)}
+.logo .wm{font-weight:800;color:var(--green)}
+.topnav a{font-weight:500;color:var(--ink)}
+.topnav+.btn{margin-left:18px}
+@media (max-width:1020px){.burger{margin-left:auto}}
+
+/* toppen */
+.hero2{min-height:min(76vh,660px)}
+.hero2 .ph::after{background:linear-gradient(90deg,rgb(9 18 32/.9) 0%,rgb(9 18 32/.6) 50%,rgb(9 18 32/.25))}
+.hero2 .over{color:rgb(255 255 255/.75);letter-spacing:.18em;font-weight:600;padding-top:14px;border-top:2px solid var(--sage);display:inline-block}
+.hero2 h1{font-weight:700;max-width:18ch;font-size:clamp(2.2rem,5.2vw,4rem);line-height:1.08}
+.hero-strip{border-bottom:1px solid var(--line)}
+.hero-strip b{font-weight:700;font-size:1.3rem}
+
+/* ingress */
+.ingress{padding-block:clamp(64px,8vw,112px)}
+.ing-grid{display:grid;grid-template-columns:minmax(0,.35fr) minmax(0,1fr);gap:clamp(24px,5vw,72px)}
+.ing-big{font:500 clamp(1.35rem,2.6vw,1.9rem)/1.45 var(--display);letter-spacing:-.01em;color:var(--ink);margin-bottom:24px}
+@media (max-width:760px){.ing-grid{grid-template-columns:1fr}}
+
+/* tjänstelistan */
+.svc-list b{font-weight:600}
+.svc-list a:hover{background:var(--white)}
+
+/* kundgrupper */
+.segs{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,36px);margin-top:44px}
+.seg{display:flex;flex-direction:column;gap:12px;padding-top:22px;border-top:1px solid var(--ink)}
+.seg h3{font-size:1.15rem;font-weight:700}
+.seg p{color:var(--muted);font-size:15.5px;flex:1}
+.seg .arrow{font-size:15px}
+@media (max-width:960px){.segs{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.segs{grid-template-columns:1fr}}
+
+/* bolagsfakta */
+.bolag{margin:28px 0 0;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--sand)}
+.bolag div{padding:14px 16px 14px 0;border-bottom:1px solid var(--sand)}
+.bolag dt{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.bolag dd{margin:4px 0 0;font-weight:600}
+@media (max-width:480px){.bolag{grid-template-columns:1fr}}
+
+/* referenser och övrigt */
+.ref-cols li{font-weight:600}
+.area-towns{font-weight:600}
+summary{font-weight:600}
+.band h2{font-weight:700}
+.fcta.light{background:var(--white);border-top:1px solid var(--line)}
+footer{background:var(--ink)}
+.fbottom{display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:space-between}
+.aside{border-radius:var(--r)}
+.tile,.mini,.refs li{border-radius:var(--r)}
+footer .logo .wm,.overlay .logo .wm{color:var(--sage)}
