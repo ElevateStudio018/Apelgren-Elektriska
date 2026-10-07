@@ -96,7 +96,7 @@ def head(title, desc, fn=""):
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/appelgrens.css">
 </head>
-<body>
+<body{' class="home"' if fn == "index.html" else ""}>
 <div class="util"><div class="in"><span>{FIRMA} AB</span><span class="util-r"><a href="om-oss.html">Om företaget</a><a href="referenser.html">Referenser</a><a href="{TEL_HREF}">Växel {TEL}</a></span></div></div>
 <header>
   <div class="in nav">
