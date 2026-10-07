@@ -463,3 +463,4 @@ footer{background:#0b131f;border-top:1px solid rgb(255 255 255/.08)}
 }
 .skip{position:absolute;left:-9999px;top:8px;z-index:100;background:var(--sage);color:var(--ink);padding:10px 14px;font-weight:600}
 .skip:focus{left:12px}
+.home .entries{margin-bottom:clamp(56px,7vw,96px)}
