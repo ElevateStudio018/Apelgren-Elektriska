@@ -258,23 +258,13 @@ page("index.html", f"Elektriker i Partille och Göteborg – {FIRMA}",
   <section class="hero2 corp" aria-label="Välkommen">
     {ph(IMG["hero"], "Elektriker som arbetar i en elcentral", "50% 40%", lazy=False)}
     <div class="in">
-      <p class="over">Elinstallationer sedan 1960</p>
-      <h1>Elinstallationer för bostäder, fastigheter och industri</h1>
-      <p>Appelgrens Elektriska utför installationer, service och entreprenader åt privatpersoner, företag och offentlig verksamhet i Partille och Stor-Göteborg.</p>
-      <div class="row"><a class="btn btn-w" href="tjanster.html">Våra tjänster</a><a class="btn btn-o" href="kontakt.html" style="color:#fff">Kontakta oss</a></div>
+      <p class="over">Elfirma i Partille sedan 1960</p>
+      <h1>Elektriker i Partille och Göteborgsområdet</h1>
+      <p>Installationer, service och entreprenader åt privatpersoner, företag och offentlig verksamhet – utförda av tolv erfarna elektriker.</p>
+      <div class="row"><a class="btn btn-w" href="kontakt.html#offert">Begär offert</a><a class="btn btn-o" href="{TEL_HREF}" style="color:#fff">Ring {TEL}</a></div>
     </div>
   </section>
   <div class="in entries">{entries}</div>
-
-  <section class="ingress">
-    <div class="in ing-grid">
-      {eyebrow("Appelgrens Elektriska AB")}
-      <div>
-        <p class="ing-big">Vi har levererat trygga och professionella elinstallationer i Partille med omnejd sedan 1960. Idag hjälper tolv elektriker privatpersoner, företag och organisationer – från mindre servicearbeten till större entreprenader och industriella installationer.</p>
-        <a class="arrow" href="om-oss.html">Om företaget</a>
-      </div>
-    </div>
-  </section>
 
   <section id="tjanster" style="background:var(--beige)">
     <div class="in">
