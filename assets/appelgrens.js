@@ -25,3 +25,10 @@ if (vald && select) {
   const opt = [...select.options].find((o) => o.dataset.slug === vald);
   if (opt) select.value = opt.value;
 }
+
+/* Mobilmeny: fäll ut tjänsterna */
+document.querySelectorAll(".sub-toggle").forEach((btn) => btn.addEventListener("click", () => {
+  const open = btn.getAttribute("aria-expanded") !== "true";
+  btn.setAttribute("aria-expanded", String(open));
+  document.getElementById(btn.getAttribute("aria-controls")).hidden = !open;
+}));
