@@ -6,9 +6,11 @@ Allt innehåll står i listorna nedan. Avsnitt för referensprojekt, kundomdöme
 och fler medarbetare visas först när respektive lista har riktigt innehåll –
 se INNEHALL.md för vad som behövs.
 """
-import html, json, os, sys
+import hashlib, html, json, os, sys
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else "."
+# Versionsnummer på CSS och JS så att webbläsare inte visar gamla, cachade filer.
+V = hashlib.md5(b"".join(open(os.path.join(OUT, "assets", f), "rb").read() for f in ("site.css", "appelgrens.css", "site.js", "appelgrens.js"))).hexdigest()[:8]
 E = html.escape
 
 def P(pexels_id, fallback):
@@ -171,8 +173,8 @@ def head(title, desc, fn=""):
 <link rel="preconnect" href="https://images.pexels.com">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="assets/site.css">
-<link rel="stylesheet" href="assets/appelgrens.css">
+<link rel="stylesheet" href="assets/site.css?v={V}">
+<link rel="stylesheet" href="assets/appelgrens.css?v={V}">
 <script type="application/ld+json">{json.dumps(SCHEMA, ensure_ascii=False)}</script>
 </head>
 <body{' class="home"' if fn == "index.html" else ""}>
@@ -211,8 +213,8 @@ def foot():
     <div class="fbottom"><span>© 2026 {FIRMA} AB · Förhandsversion, bilderna är tillfälliga</span><a class="totop" href="#" data-top>Till toppen</a></div>
   </div>
 </footer>
-<script src="assets/site.js" defer></script>
-<script src="assets/appelgrens.js" defer></script>
+<script src="assets/site.js?v={V}" defer></script>
+<script src="assets/appelgrens.js?v={V}" defer></script>
 </body>
 </html>
 '''
