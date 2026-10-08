@@ -516,3 +516,7 @@ footer .logo img,.overlay .logo img{filter:brightness(0) invert(1)}
 .overlay .ov-sub.open a:nth-child(7){transition-delay:.28s}
 .overlay .ov-sub:not(.open) a{visibility:hidden;transition:opacity .1s,transform .1s,visibility 0s .1s}
 @media (prefers-reduced-motion:reduce){.overlay .ov-sub,.overlay .ov-sub a{transition:none}}
+
+/* mobilmenyns logotyprad följer med vid scroll så att inget hamnar under den */
+.overlay{padding-top:0}
+.overlay .ov-top{position:sticky;top:0;z-index:3;background:var(--green);margin:0 -24px 28px;padding:calc(12px + env(safe-area-inset-top,0px)) 24px 12px;max-width:none;width:auto}
