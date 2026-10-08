@@ -494,3 +494,25 @@ footer .logo img,.overlay .logo img{filter:brightness(0) invert(1)}
 /* policysidan */
 .ex-list.one{grid-template-columns:1fr}
 .sign{margin-top:10px;color:var(--muted);font-size:15px}
+
+/* menyknapp längst ut, inget fast fält på mobilen */
+.burger,.topnav+.burger{margin-left:16px}
+.hd-offer{margin-left:auto}
+.topnav+.hd-offer{margin-left:24px}
+@media (max-width:1020px){.burger{margin-left:auto}}
+@media (max-width:760px){body{padding-bottom:0}}
+
+/* mobilmeny: börjar uppifrån så att innehållet under knuffas ner */
+.overlay{justify-content:flex-start;padding-top:calc(96px + env(safe-area-inset-top,0px))}
+/* tjänsterna fälls ut mjukt, en i taget */
+.overlay .ov-sub{display:grid;grid-template-rows:0fr;margin:0;transition:grid-template-rows .32s cubic-bezier(.3,.7,.2,1),margin .32s}
+.overlay .ov-sub.open{grid-template-rows:1fr;margin:6px 0 10px}
+.overlay .ov-sub-in{overflow:hidden;display:flex;flex-direction:column;min-height:0}
+.overlay .ov-sub a{opacity:0;transform:translateY(-6px);transition:opacity .18s,transform .18s}
+.overlay .ov-sub.open a{opacity:1;transform:none}
+.overlay .ov-sub.open a:nth-child(1){transition-delay:.04s}.overlay .ov-sub.open a:nth-child(2){transition-delay:.08s}
+.overlay .ov-sub.open a:nth-child(3){transition-delay:.12s}.overlay .ov-sub.open a:nth-child(4){transition-delay:.16s}
+.overlay .ov-sub.open a:nth-child(5){transition-delay:.2s}.overlay .ov-sub.open a:nth-child(6){transition-delay:.24s}
+.overlay .ov-sub.open a:nth-child(7){transition-delay:.28s}
+.overlay .ov-sub:not(.open) a{visibility:hidden;transition:opacity .1s,transform .1s,visibility 0s .1s}
+@media (prefers-reduced-motion:reduce){.overlay .ov-sub,.overlay .ov-sub a{transition:none}}

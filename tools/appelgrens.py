@@ -153,7 +153,7 @@ SCHEMA = {"@context": "https://schema.org", "@type": "Electrician", "name": f"{F
 
 def head(title, desc, fn=""):
     sub = "".join(f'<a href="tjanst-{t["slug"]}.html">{E(t["title"])}</a>' for t in TJANSTER) + '<a href="tjanster.html#ovriga">Övriga tjänster</a>'
-    nav = "".join((f'<li class="has-sub"><div class="sub-row"><a href="{u}">{t}</a><button class="sub-toggle" type="button" aria-expanded="false" aria-controls="ov-tjanster" aria-label="Visa alla tjänster"><span class="chev" aria-hidden="true"></span></button></div><div class="ov-sub" id="ov-tjanster" hidden>{sub}</div></li>' if u == "tjanster.html" else f'<li><a href="{u}">{t}</a></li>') for u, t in NAV)
+    nav = "".join((f'<li class="has-sub"><div class="sub-row"><a href="{u}">{t}</a><button class="sub-toggle" type="button" aria-expanded="false" aria-controls="ov-tjanster" aria-label="Visa alla tjänster"><span class="chev" aria-hidden="true"></span></button></div><div class="ov-sub" id="ov-tjanster"><div class="ov-sub-in">{sub}</div></div></li>' if u == "tjanster.html" else f'<li><a href="{u}">{t}</a></li>') for u, t in NAV)
     cur = lambda u: " aria-current=\"page\"" if u == fn or (u == "tjanster.html" and fn.startswith("tjanst-")) else ""
     mega = '<div class="mega"><div class="mega-in"><div><p class="eyebrow">Tjänster</p><p class="mega-lead">Elinstallationer, service och entreprenader för privatpersoner, företag och industri.</p></div><ul>' + "".join(f'<li><a href="tjanst-{t["slug"]}.html">{E(t["title"])}</a></li>' for t in TJANSTER) + '<li><a href="tjanster.html#ovriga">Övriga tjänster</a></li></ul></div></div>'
     topnav = "".join((f'<div class="has-mega"><a href="{u}"{cur(u)} aria-haspopup="true">{t}<span class="chev" aria-hidden="true"></span></a>{mega}</div>' if u == "tjanster.html" else f'<a href="{u}"{cur(u)}>{t}</a>') for u, t in NAV)
@@ -181,8 +181,8 @@ def head(title, desc, fn=""):
   <div class="in nav">
     <a class="logo" href="index.html" aria-label="{FIRMA}, till startsidan">{LOGO_TXT}</a>
     <nav class="topnav" aria-label="Huvudmeny">{topnav}</nav>
-    <button class="burger" id="burger" aria-expanded="false" aria-controls="overlay" aria-label="Öppna menyn"><span></span><span></span><span></span></button>
     <a class="btn btn-g hd-offer" href="kontakt.html">Kontakta oss</a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="overlay" aria-label="Öppna menyn"><span></span><span></span><span></span></button>
   </div>
 </header>
 <div class="overlay" id="overlay" aria-hidden="true" inert>
@@ -211,7 +211,6 @@ def foot():
     <div class="fbottom"><span>© 2026 {FIRMA} AB · Förhandsversion, bilderna är tillfälliga</span><a class="totop" href="#" data-top>Till toppen</a></div>
   </div>
 </footer>
-<nav class="callbar" aria-label="Snabbkontakt"><a href="{TEL_HREF}">Ring {TEL}</a><a href="kontakt.html#offert">Begär offert</a></nav>
 <script src="assets/site.js" defer></script>
 <script src="assets/appelgrens.js" defer></script>
 </body>
