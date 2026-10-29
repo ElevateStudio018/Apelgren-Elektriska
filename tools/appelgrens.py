@@ -8,6 +8,13 @@ se INNEHALL.md för vad som behövs.
 """
 import hashlib, html, json, os, sys
 
+# Elevate Studio's credit under every footer: the mark and the name, the whole of it one link to elevatestudio.nu.
+ELEVATE_CREDIT = '''<!-- elevate-credit -->
+<style>.elevate-credit{max-width:1240px;margin:24px auto 0;padding:20px 16px 0;border-top:1px solid rgba(128,128,128,.25);display:flex;justify-content:center;box-sizing:border-box}.elevate-credit a{display:inline-flex;align-items:center;gap:8px;padding:8px 0;font:inherit;font-size:13px;line-height:1;color:inherit;opacity:.55;text-decoration:none;transition:opacity .2s}.elevate-credit a:hover,.elevate-credit a:focus-visible{opacity:1}.elevate-credit svg{width:16px;height:16px;flex:none;display:block}@media(min-width:1024px){.elevate-credit a{font-size:14px}}</style>
+<div class="elevate-credit"><a href="https://elevatestudio.nu" target="_blank" rel="noopener"><svg viewBox="0 0 1884.3 1353.9" aria-hidden="true"><path d="M0.0 1353.9 L1218.7 0.0 L1218.7 329.1 L479.7 1136.4 L786.7 1132.4 L1215.5 687.4 L1884.3 1349.9 L1590.1 1349.9 L1218.6 994.7 L865.4 1349.9Z" fill="currentColor"/></svg>Byggd av Elevate Studio</a></div>
+'''
+
+
 OUT = sys.argv[1] if len(sys.argv) > 1 else "."
 # Versionsnummer på CSS och JS så att webbläsare inte visar gamla, cachade filer.
 V = hashlib.md5(b"".join(open(os.path.join(OUT, "assets", f), "rb").read() for f in ("site.css", "appelgrens.css", "site.js", "appelgrens.js"))).hexdigest()[:8]
@@ -212,7 +219,7 @@ def foot():
     <div class="certs" aria-label="Certifieringar"><span>Certifierad datainstallatör ELKO</span><span>Certifierad datainstallatör Lexcom</span><span>Sedan 1960</span></div>
     <div class="fbottom"><span>© 2026 {FIRMA} AB · Förhandsversion, bilderna är tillfälliga</span><a class="totop" href="#" data-top>Till toppen</a></div>
   </div>
-</footer>
+{ELEVATE_CREDIT}</footer>
 <script src="assets/site.js?v={V}" defer></script>
 <script src="assets/appelgrens.js?v={V}" defer></script>
 </body>
